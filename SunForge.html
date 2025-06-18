@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUNFORGE - Your Bloodline Survived 300,000 Years Under The Sun</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --black: #000000;
+            --gold: #FFD700;
+            --blood-orange: #FF4500;
+            --bone-white: #FAFAFA;
+            --warning-red: #DC143C;
+            --fluorescent: #F0F0E6;
+        }
+        
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--black);
+            color: var(--bone-white);
+            overflow-x: hidden;
+            cursor: default;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--black);
+            border-bottom: 1px solid var(--gold);
+            z-index: 1000;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+        
+        .sun-symbol {
+            width: 30px;
+            height: 30px;
+            background: var(--gold);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .tagline {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            letter-spacing: 3px;
+            color: var(--gold);
+        }
+        
+        .sold-out {
+            background: var(--warning-red);
+            padding: 8px 20px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            letter-spacing: 2px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(40px, 6vw, 80px);
+            line-height: 1.1;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .hero-text:nth-child(2) {
+            animation-delay: 3s;
+            color: var(--gold);
+        }
+        
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            font-size: 14px;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 6s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(40px, 5vw, 60px);
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            color: var(--gold);
+        }
+        
+        /* The Descent */
+        .descent {
+            background: linear-gradient(to bottom, var(--black) 0%, var(--fluorescent) 100%);
+            color: var(--black);
+        }
+        
+        .generation {
+            margin: 60px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .generation.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .generation h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        
+        .generation-image {
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
+            background: var(--black);
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .generation-image::after {
+            content: '[IMAGE PLACEHOLDER]';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--gold);
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+        
+        .wake-up {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 60px;
+            text-align: center;
+            margin-top: 100px;
+            color: var(--warning-red);
+        }
+        
+        /* The Revelation */
+        .revelation {
+            background: var(--black);
+            text-align: center;
+        }
+        
+        .revelation h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(50px, 7vw, 90px);
+            line-height: 1;
+            color: var(--gold);
+            margin-bottom: 60px;
+        }
+        
+        .revelation p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin: 20px 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .revelation strong {
+            color: var(--blood-orange);
+            font-size: 24px;
+            display: block;
+            margin: 40px 0;
+        }
+        
+        /* The Weapon */
+        .weapon {
+            text-align: center;
+        }
+        
+        .product-image {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            background: linear-gradient(45deg, var(--black) 0%, #111 50%, var(--black) 100%);
+            border: 2px solid var(--gold);
+            margin: 40px auto;
+            position: relative;
+        }
+        
+        .product-image::after {
+            content: 'SUNFORGE DEVICE';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--gold);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 30px;
+            letter-spacing: 4px;
+        }
+        
+        .truths {
+            text-align: left;
+            max-width: 800px;
+            margin: 60px auto;
+        }
+        
+        .truth {
+            margin: 30px 0;
+            padding-left: 30px;
+            border-left: 3px solid var(--gold);
+        }
+        
+        .truth strong {
+            color: var(--gold);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+        }
+        
+        /* The Hierarchy */
+        .hierarchy {
+            text-align: center;
+        }
+        
+        .pyramid {
+            max-width: 800px;
+            margin: 60px auto;
+        }
+        
+        .level {
+            margin: 40px 0;
+            padding: 30px;
+            border: 1px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+        
+        .level:hover {
+            background: rgba(255, 215, 0, 0.1);
+            transform: translateX(10px);
+        }
+        
+        .level h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 30px;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        
+        .level .status {
+            color: var(--warning-red);
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        /* The Proof */
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+        
+        .testimonial {
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid var(--gold);
+            padding: 30px;
+        }
+        
+        .testimonial h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            color: var(--blood-orange);
+            margin-bottom: 10px;
+        }
+        
+        /* The Science */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+        
+        .stat {
+            padding: 30px;
+            border: 2px solid var(--gold);
+        }
+        
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 60px;
+            color: var(--gold);
+        }
+        
+        /* The Ultimatum */
+        .ultimatum {
+            background: var(--black);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 100vh;
+        }
+        
+        .ultimatum-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(30px, 4vw, 50px);
+            line-height: 1.5;
+            color: var(--gold);
+            opacity: 0;
+        }
+        
+        .ultimatum-text.visible {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(-10px);
+            }
+        }
+        
+        /* The Call */
+        .call {
+            text-align: center;
+            padding: 150px 40px;
+        }
+        
+        .waitlist-form {
+            max-width: 500px;
+            margin: 60px auto;
+        }
+        
+        .email-input {
+            width: 100%;
+            padding: 20px;
+            background: var(--black);
+            border: 2px solid var(--gold);
+            color: var(--bone-white);
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        
+        .email-input::placeholder {
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 20px;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: var(--blood-orange);
+            transform: translateY(-2px);
+        }
+        
+        .counter {
+            margin-top: 40px;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        
+        .counter span {
+            color: var(--gold);
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--black);
+            padding: 60px 40px;
+            text-align: center;
+            border-top: 1px solid var(--gold);
+        }
+        
+        .footer-tagline {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: 30px;
+        }
+        
+        .social-links {
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            color: var(--bone-white);
+            text-decoration: none;
+            margin: 0 20px;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--gold);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            section {
+                padding: 60px 20px;
+            }
+            
+            .hero-text {
+                font-size: clamp(30px, 8vw, 60px);
+            }
+            
+            .mobile-warning {
+                display: block;
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+                background: var(--warning-red);
+                padding: 15px;
+                text-align: center;
+                font-family: 'Bebas Neue', sans-serif;
+                letter-spacing: 2px;
+                z-index: 1001;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-warning {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <div class="sun-symbol"></div>
+            <span>SUNFORGE</span>
+        </div>
+        <div class="tagline">THE ASCENSION BEGINS</div>
+        <div class="sold-out">SOLD OUT</div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="hero-text">YOUR BLOODLINE SURVIVED 300,000 YEARS UNDER THE SUN</h1>
+        <h1 class="hero-text">DON'T LET IT DIE UNDER FLUORESCENT LIGHTS</h1>
+        <div class="scroll-hint">↓ REMEMBER WHO YOU ARE ↓</div>
+    </section>
+
+    <!-- The Descent -->
+    <section class="descent">
+        <h2>THE DESCENT</h2>
+        
+        <div class="generation">
+            <h3>Your Great Grandfather:</h3>
+            <p>Built railroads with his bare hands. Died at 89, strong as oak.</p>
+            <div class="generation-image"></div>
+        </div>
+        
+        <div class="generation">
+            <h3>Your Grandfather:</h3>
+            <p>Fought wars under foreign suns. Fathered 6 children at 50.</p>
+            <div class="generation-image"></div>
+        </div>
+        
+        <div class="generation">
+            <h3>Your Father:</h3>
+            <p>Last generation to work outdoors. Still doing pushups at 70.</p>
+            <div class="generation-image"></div>
+        </div>
+        
+        <div class="generation">
+            <h3>You:</h3>
+            <p>Vitamin D: 12 ng/mL. Testosterone: Declining. Grip strength: Pathetic.</p>
+            <div class="generation-image"></div>
+        </div>
+        
+        <div class="wake-up">WAKE UP.</div>
+    </section>
+
+    <!-- The Revelation -->
+    <section class="revelation">
+        <h1>THE SUN IS FREE<br>BUT YOU'RE TOO DOMESTICATED TO TAKE IT</h1>
+        
+        <p>Every day, 8 billion humans receive a cosmic gift of nuclear fusion, perfectly calibrated by millions of years of evolution to optimize every cell in their body.</p>
+        
+        <strong>And what do you do?</strong>
+        
+        <p>Hide from it like a vampire.<br>
+        Slather yourself in chemicals.<br>
+        Cower behind glass.</p>
+        
+        <p><strong>Your ancestors navigated by stars. You navigate by Google Maps.</strong></p>
+        <p><strong>They tracked seasons by sun position. You can't even track your UV exposure.</strong></p>
+        
+        <h2 style="margin-top: 100px;">UNTIL NOW.</h2>
+    </section>
+
+    <!-- The Weapon -->
+    <section class="weapon">
+        <h2>THE WEAPON</h2>
+        
+        <div class="product-image"></div>
+        
+        <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--gold); margin: 20px 0;">SUNFORGE</h3>
+        <p style="font-style: italic;">The difference between thriving and dying slowly</p>
+        
+        <p style="font-size: 24px; margin: 40px 0;"><strong>This isn't wellness. This is warfare.</strong></p>
+        
+        <p>Warfare against:</p>
+        <ul style="list-style: none; padding: 0;">
+            <li>- The indoor industrial complex</li>
+            <li>- Your genetic deterioration</li>
+            <li>- The fluorescent occupation of your bloodstream</li>
+        </ul>
+        
+        <p style="font-size: 20px; margin: 40px 0;"><strong>One device. Three truths:</strong></p>
+        
+        <div class="truths">
+            <div class="truth">
+                <strong>TRUTH #1:</strong>
+                <p>Every untracked UV ray is a missed opportunity for cellular optimization</p>
+            </div>
+            <div class="truth">
+                <strong>TRUTH #2:</strong>
+                <p>Your fear of the sun is manufactured by people who profit from your weakness</p>
+            </div>
+            <div class="truth">
+                <strong>TRUTH #3:</strong>
+                <p>You're either ascending or decaying. There is no maintenance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Hierarchy -->
+    <section class="hierarchy">
+        <h2>THE HIERARCHY</h2>
+        <h3 style="font-size: 30px; margin-bottom: 40px;">WHERE DO YOU RANK?</h3>
+        
+        <div class="pyramid">
+            <div class="level">
+                <h3>CAVE DWELLER</h3>
+                <p>- Under 10 minutes daily sun<br>
+                - Supplementing with synthetic D3<br>
+                - Thinks SPF 100 is a personality trait</p>
+                <p class="status">Status: Genetic Death Spiral</p>
+            </div>
+            
+            <div class="level">
+                <h3>SURFACE WALKER</h3>
+                <p>- 10-30 minutes daily<br>
+                - Occasionally sees sunrise<br>
+                - Still fears the sun</p>
+                <p class="status">Status: Barely Surviving</p>
+            </div>
+            
+            <div class="level">
+                <h3>SUN SEEKER</h3>
+                <p>- 30-60 minutes daily<br>
+                - Tracks UV exposure<br>
+                - Beginning to remember</p>
+                <p class="status">Status: Awakening</p>
+            </div>
+            
+            <div class="level">
+                <h3>SOLAR WARRIOR</h3>
+                <p>- 60+ minutes optimized exposure<br>
+                - Lives by circadian rhythm<br>
+                - Skin like bronze, grip like iron</p>
+                <p class="status">Status: Reclaiming Legacy</p>
+            </div>
+            
+            <div class="level" style="background: rgba(255, 215, 0, 0.1);">
+                <h3>SUNFORGE BEARER</h3>
+                <p>- Precision tracking every photon<br>
+                - Perfect UV/Vitamin D optimization<br>
+                - Unrecognizable from former self</p>
+                <p class="status" style="color: var(--gold);">Status: ASCENDED</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Proof -->
+    <section class="proof">
+        <h2>THE PROOF</h2>
+        
+        <div class="proof-grid">
+            <div class="testimonial">
+                <h4>DAY 0 → DAY 47</h4>
+                <p>"Manager asked if I'm on TRT. I'm not."</p>
+            </div>
+            
+            <div class="testimonial">
+                <h4>DAY 0 → DAY 90</h4>
+                <p>"Deadlift went from 225 to 405. Same program."</p>
+            </div>
+            
+            <div class="testimonial">
+                <h4>DAY 0 → DAY 120</h4>
+                <p>"Ex-wife texted after seeing beach photos. Blocked."</p>
+            </div>
+            
+            <div class="testimonial">
+                <h4>DAY 0 → DAY 180</h4>
+                <p>"Promoted twice. They can smell the optimization."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Science -->
+    <section class="science">
+        <h2>THE SCIENCE (BARELY)</h2>
+        <h3 style="text-align: center; font-size: 30px; margin-bottom: 40px;">YOUR BODY IS A SOLAR PANEL</h3>
+        <p style="text-align: center; font-style: italic;">And you've been running on empty</p>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">7</div>
+                <p>seconds<br>Time for UV to trigger vitamin D synthesis</p>
+            </div>
+            
+            <div class="stat">
+                <div class="stat-number">50%</div>
+                <p>Population clinically deficient</p>
+            </div>
+            
+            <div class="stat">
+                <div class="stat-number">73%</div>
+                <p>Testosterone decline since your grandfather's generation</p>
+            </div>
+            
+            <div class="stat">
+                <div class="stat-number">1</div>
+                <p>Number of solutions that matter</p>
+            </div>
+        </div>
+        
+        <p style="text-align: center; font-size: 12px; margin-top: 40px; opacity: 0.7;">
+            We could cite 47 studies but you wouldn't read them. Just know that every cell in your body has vitamin D receptors for a reason.
+        </p>
+    </section>
+
+    <!-- The Ultimatum -->
+    <section class="ultimatum">
+        <div class="ultimatum-text">YOU.</div>
+        <div class="ultimatum-text">READING THIS.</div>
+        <div class="ultimatum-text">IN YOUR CLIMATE-CONTROLLED CAGE.</div>
+        <div class="ultimatum-text">UNDER ARTIFICIAL LIGHT.</div>
+        <div class="ultimatum-text">WITH ARTIFICIALLY LOW TESTOSTERONE.</div>
+        <div class="ultimatum-text">LIVING AN ARTIFICIAL LIFE.</div>
+        <div class="ultimatum-text" style="font-size: 60px; margin-top: 60px; color: var(--warning-red);">THIS IS YOUR LAST WARNING.</div>
+    </section>
+
+    <!-- The Call -->
+    <section class="call">
+        <div class="product-image"></div>
+        
+        <h2 style="font-size: 80px;">SUNFORGE</h2>
+        <h3 style="font-size: 40px; color: var(--warning-red); margin: 20px 0;">CURRENTLY: SOLD OUT</h3>
+        
+        <p style="margin: 40px 0;">
+            <strong>The weak complained about gatekeeping.</strong><br>
+            <strong>The strong understood scarcity.</strong>
+        </p>
+        
+        <h3 style="font-size: 30px; margin: 60px 0;">JOIN THE ASCENSION WAITLIST</h3>
+        
+        <form class="waitlist-form">
+            <input type="email" class="email-input" placeholder="ENTER YOUR EMAIL" required>
+            <button type="submit" class="submit-btn">PROVE YOU'RE WORTHY OF THE SUN</button>
+        </form>
+        
+        <div class="counter">
+            <p><span id="waitlist-count">7,834</span> WARRIORS WAITING</p>
+            <p><span id="recent-joins">87</span> JOINED IN THE LAST HOUR</p>
+            <p>WILL YOU?</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-tagline">THE REVOLUTION WILL NOT BE SUPPLEMENTED</div>
+        
+        <div class="social-links">
+            <a href="#">Instagram</a>
+            <a href="#">Telegram</a>
+            <a href="#">Signal</a>
+        </div>
+        
+        <div class="social-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Contact</a>
+        </div>
+        
+        <p style="margin-top: 30px; font-size: 12px; opacity: 0.7;">
+            © 2025 SUNFORGE. FORGED IN LIGHT.
+        </p>
+    </footer>
+
+    <!-- Mobile Warning (only shows on mobile during midday) -->
+    <div class="mobile-warning" id="mobile-warning" style="display: none;">
+        PUT YOUR PHONE DOWN AND GO OUTSIDE
+    </div>
+
+    <script>
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.generation, .ultimatum-text').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation
+        let waitlistCount = 7834;
+        let recentJoins = 87;
+
+        setInterval(() => {
+            if (Math.random() > 0.5) {
+                waitlistCount += Math.floor(Math.random() * 3) + 1;
+                document.getElementById('waitlist-count').textContent = waitlistCount.toLocaleString();
+            }
+        }, 5000);
+
+        setInterval(() => {
+            recentJoins = Math.floor(Math.random() * 50) + 50;
+            document.getElementById('recent-joins').textContent = recentJoins;
+        }, 60000);
+
+        // Mobile midday warning
+        const hour = new Date().getHours();
+        if (window.innerWidth < 768 && hour >= 11 && hour <= 15) {
+            document.getElementById('mobile-warning').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('mobile-warning').style.display = 'none';
+            }, 5000);
+        }
+
+        // Form submission
+        document.querySelector('.waitlist-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target.querySelector('.email-input').value;
+            alert(`WARRIOR ${email.toUpperCase()} ADDED TO THE ASCENSION. THE SUN AWAITS.`);
+            e.target.reset();
+            waitlistCount++;
+            document.getElementById('waitlist-count').textContent = waitlistCount.toLocaleString();
+        });
+
+        // Konami code easter egg
+        let konamiCode = [];
+        const konamiPattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join(',') === konamiPattern.join(',')) {
+                alert('SOLAR PROTOCOL PDF UNLOCKED. CHECK YOUR EMAIL.');
+                konamiCode = [];
+            }
+        });
+
+        // Sunrise message
+        const currentHour = new Date().getHours();
+        if (currentHour >= 5 && currentHour <= 7) {
+            console.log('%c THE SUN RISES. ARE YOU READY?', 'color: #FFD700; font-size: 20px; font-weight: bold;');
+        }
+    </script>
+</body>
+</html>

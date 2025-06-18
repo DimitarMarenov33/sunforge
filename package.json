@@ -1,0 +1,24 @@
+{
+  "name": "sunforge-website",
+  "version": "1.0.0",
+  "description": "SUNFORGE - Solar Masculinity Optimization Website",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Build complete'",
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "keywords": [
+    "sunforge",
+    "solar",
+    "health",
+    "optimization"
+  ],
+  "author": "SUNFORGE Team",
+  "license": "MIT"
+}

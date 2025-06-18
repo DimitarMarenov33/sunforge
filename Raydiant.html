@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SunForge | UV Tracking Bracelet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <style>
+        :root {
+            --black: #000000;
+            --dark-gray: #111111;
+            --light-gray: #aaaaaa;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            height: 500vh; /* Extra height for scrolling effects */
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--dark-gray);
+            border-top: 3px solid var(--white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            font-size: 1.2rem;
+            color: var(--white);
+            letter-spacing: 2px;
+            font-weight: 200;
+        }
+
+        .model-container {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        #bracelet-model {
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .section.active {
+            opacity: 1;
+        }
+        
+        /* Text background overlay for better readability */
+        .text-container {
+            background-color: rgba(0, 0, 0, 0.5); /* More transparent */
+            padding: 2rem;
+            border-radius: 2px;
+            box-shadow: 0 0 30px 30px rgba(0, 0, 0, 0.5); /* Match transparency */
+            backdrop-filter: blur(2px); /* Less blur to see spotlight */
+            max-width: 80%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            /* Glow effect */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3),
+                         0 0 20px rgba(255, 255, 255, 0.2),
+                         0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 200;
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature {
+            font-size: 2rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .feature.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .feature-detail {
+            font-size: 1.2rem;
+            font-weight: 200;
+            text-align: center;
+            max-width: 500px;
+            margin-bottom: 5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+            transition-delay: 0.2s;
+        }
+        
+        .feature-detail.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background-color: transparent;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 400;
+            border: 1px solid var(--white);
+            border-radius: 0;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s, background-color 0.3s, color 0.3s;
+            transition-delay: 0.3s;
+        }
+
+        .cta-button.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-button:hover {
+            background-color: var(--white);
+            color: var(--black);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 5vh;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.5;
+            animation: fadeInOut 2s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--white);
+        }
+
+        @media screen and (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .feature {
+                font-size: 1.5rem;
+            }
+            
+            .feature-detail {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">SUNFORGE</div>
+        </div>
+    </div>
+
+    <!-- 3D Model Background -->
+    <div class="model-container">
+        <canvas id="bracelet-model"></canvas>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="content-container">
+        <section class="section" id="hero">
+            <div class="text-container">
+                <h1 class="hero-title">Stay ahead of the burn</h1>
+                <p class="subtitle">Precision UV tracking in an elegant, minimalist design that protects your skin and enhances your style</p>
+            </div>
+        </section>
+
+        <section class="section" id="feature1">
+            <div class="text-container">
+                <h2 class="feature">Real-time UV Tracking</h2>
+                <p class="feature-detail">Advanced sensors continuously monitor UV exposure with clinical-grade accuracy, providing real-time updates throughout your day.</p>
+            </div>
+        </section>
+
+        <section class="section" id="feature2">
+            <div class="text-container">
+                <h2 class="feature">Custom Alerts</h2>
+                <p class="feature-detail">Receive subtle vibration alerts when you're approaching your daily UV limit, customized to your skin type and sensitivity.</p>
+            </div>
+        </section>
+
+        <section class="section" id="feature3">
+            <div class="text-container">
+                <h2 class="feature">Seamless Integration</h2>
+                <p class="feature-detail">Connect with our app to track exposure trends, receive personalized advice, and manage your skin health with effortless precision.</p>
+            </div>
+        </section>
+
+        <section class="section" id="cta">
+            <div class="text-container">
+                <h2 class="feature">Experience the future</h2>
+                <p class="feature-detail">Limited first-batch units available for pre-order with special early-adopter access.</p>
+                <a href="#" class="cta-button">Pre-order Now</a>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/ScrollTrigger.min.js"></script>
+    <script>
+        // Wait for resources to load
+        window.addEventListener('load', () => {
+            // Hide loader
+            setTimeout(() => {
+                document.querySelector('.loader').style.opacity = '0';
+                setTimeout(() => {
+                    document.querySelector('.loader').style.display = 'none';
+                }, 500);
+            }, 1500);
+
+            initThreeScene();
+
+            function initThreeScene() {
+                // Three.js setup for 3D model
+                const modelCanvas = document.getElementById('bracelet-model');
+                const renderer = new THREE.WebGLRenderer({
+                    canvas: modelCanvas,
+                    alpha: true,
+                    antialias: true
+                });
+                renderer.setPixelRatio(window.devicePixelRatio);
+                renderer.setSize(modelCanvas.clientWidth, modelCanvas.clientHeight);
+                renderer.outputEncoding = THREE.sRGBEncoding;
+
+                // Scene setup
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(45, modelCanvas.clientWidth / modelCanvas.clientHeight, 0.1, 1000);
+                camera.position.set(0, 0, 333);
+
+                // Lighting setup
+                // Minimal ambient light
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+                scene.add(ambientLight);
+
+                // Add a simple bright spotlight from above (ONLY ONE SPOTLIGHT)
+                const spotlight = new THREE.SpotLight(0xffffff, 2.0);
+                spotlight.position.set(0, 800, 100); // Position high above and slightly in front
+                spotlight.angle = 0.4; // Moderate width beam
+                spotlight.penumbra = 0.2; // Somewhat soft edge
+                spotlight.distance = 2000; // Long enough to reach everything
+                spotlight.decay = 0.5; // Moderate decay for visibility
+                scene.add(spotlight);
+                
+                // Create a target for the spotlight (ONLY ONE TARGET)
+                const spotlightTarget = new THREE.Object3D();
+                spotlightTarget.position.set(0, 0, 0);
+                scene.add(spotlightTarget);
+                spotlight.target = spotlightTarget;
+
+                // Create a large, soft spotlight from above
+                spotlight.position.set(0, 800, 100); // Position high above
+                spotlight.angle = 0.4; // Moderate width beam
+                spotlight.penumbra = 0.2; // Somewhat soft edge
+                spotlight.distance = 2000; // Long reach
+                spotlight.decay = 0.5; // Slower decay
+                scene.add(spotlight);
+                
+                // Target for the spotlight - centered on the model
+                spotlightTarget.position.set(0, 0, 0);
+                scene.add(spotlightTarget);
+                spotlight.target = spotlightTarget;
+
+                // Create a monochrome material in case textures don't load
+                const fallbackMaterial = new THREE.MeshStandardMaterial({
+                    color: 0xffffff,
+                    metalness: 0.8,
+                    roughness: 0.2,
+                    emissive: 0xffffff,
+                    emissiveIntensity: 0.1
+                });
+                
+                // Create placeholder while loading
+                const geometry = new THREE.TorusGeometry(1, 0.2, 16, 100);
+                const placeholder = new THREE.Mesh(geometry, fallbackMaterial);
+                scene.add(placeholder);
+                
+                // Create a group for the model
+                const modelGroup = new THREE.Group();
+                scene.add(modelGroup);
+                
+                // Load the actual GLTF model with its original materials
+                const loader = new THREE.GLTFLoader();
+                
+                loader.load('./bracelet.gltf',
+                    // Success callback
+                    (gltf) => {
+                        placeholder.visible = false;
+                        modelGroup.add(gltf.scene);
+                        
+                        // Update materials to be monochrome if needed
+                        gltf.scene.traverse((node) => {
+                            if (node.isMesh && node.material) {
+                                // You can modify materials here if needed to make them monochrome
+                                // This preserves the original materials but can adjust them
+                                if (Array.isArray(node.material)) {
+                                    node.material.forEach(mat => {
+                                        mat.color.setHex(0xffffff);
+                                    });
+                                } else {
+                                    node.material.color.setHex(0xffffff);
+                                }
+                            }
+                        });
+                        
+                        // Scale down the model to ensure it's fully visible
+                        gltf.scene.scale.set(0.7, 0.7, 0.7);
+                        
+                        // Rotate model 180 degrees to show the opposite side
+                        gltf.scene.rotation.y = Math.PI;
+                        
+                        console.log('Model loaded successfully!');
+                    }, 
+                    // Progress callback
+                    (xhr) => {
+                        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                    },
+                    // Error callback
+                    (error) => {
+                        console.error('An error happened loading the model:', error);
+                        // Keep placeholder visible if loading fails
+                        placeholder.visible = true;
+                    }
+                );
+
+                // Mouse interaction for the 3D model
+                let mouseX = 0;
+                let mouseY = 0;
+                let targetX = 0;
+                let targetY = 0;
+                const windowHalfX = window.innerWidth / 2;
+                const windowHalfY = window.innerHeight / 2;
+
+                document.addEventListener('mousemove', (event) => {
+                    mouseX = (event.clientX - windowHalfX);
+                    mouseY = (event.clientY - windowHalfY);
+                });
+
+                // Animation loop
+                function animate() {
+                    requestAnimationFrame(animate);
+                    
+                    // Get current time for animations
+                    const time = Date.now() * 0.001;
+                    
+                    // Very subtle movement for the spotlight - just enough to create some dynamics
+                    spotlight.position.x = Math.sin(time * 0.1) * 20;
+                    spotlight.position.z = Math.cos(time * 0.1) * 20;
+                    
+                    // Smooth mouse following
+                    targetX = mouseX * 0.001;
+                    targetY = mouseY * 0.001;
+                    
+                    modelGroup.rotation.y += 0.003; // Base rotation
+                    modelGroup.rotation.y += (targetX - modelGroup.rotation.y) * 0.05; // Mouse influence
+                    modelGroup.rotation.x += (targetY - modelGroup.rotation.x) * 0.05; // Mouse influence
+                    
+                    renderer.render(scene, camera);
+                }
+                animate();
+
+                // Resize handler
+                window.addEventListener('resize', () => {
+                    camera.aspect = modelCanvas.clientWidth / modelCanvas.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(modelCanvas.clientWidth, modelCanvas.clientHeight);
+                });
+            }
+
+            // GSAP animations
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Activate sections on scroll
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                const features = section.querySelectorAll('.feature');
+                const details = section.querySelectorAll('.feature-detail');
+                const buttons = section.querySelectorAll('.cta-button');
+                
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    onEnter: () => {
+                        section.classList.add('active');
+                        features.forEach(feature => feature.classList.add('active'));
+                        details.forEach(detail => detail.classList.add('active'));
+                        buttons.forEach(button => button.classList.add('active'));
+                    },
+                    onLeaveBack: () => {
+                        if (index !== 0) { // Keep first section always visible when scrolling back up
+                            section.classList.remove('active');
+                            features.forEach(feature => feature.classList.remove('active'));
+                            details.forEach(detail => detail.classList.remove('active'));
+                            buttons.forEach(button => button.classList.remove('active'));
+                        }
+                    }
+                });
+            });
+
+            // Make first section visible immediately
+            document.querySelector('#hero').classList.add('active');
+
+            // Smooth scroll for the scroll section
+            window.addEventListener('scroll', function() {
+                // Enable smooth scrolling behavior for better experience
+                document.documentElement.style.scrollBehavior = 'smooth';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUNFORGE - Solar Masculinity Optimization</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --black: #000000;
+            --off-black: #0a0a0a;
+            --gold: #D4AF37;
+            --warm-white: #FAFAF8;
+            --gray: #888888;
+            --light-gray: #E5E5E5;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--black);
+            color: var(--warm-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.7);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--warm-white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            opacity: 0.8;
+        }
+        
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--gold);
+        }
+        
+        .nav-cta {
+            background: var(--warm-white);
+            color: var(--black);
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Hero with Video Background */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 1;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            padding: 0 40px;
+            z-index: 1;
+        }
+        
+        .hero-subtitle {
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+        
+        .hero-title {
+            font-size: clamp(48px, 7vw, 66px);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.7s forwards;
+        }
+        
+        .hero-description {
+            font-size: 20px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.9s forwards;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            background: var(--warm-white);
+            color: var(--black);
+            padding: 16px 48px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1.1s forwards;
+        }
+        
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.3);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+        
+        /* Section Styling */
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-subtitle {
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        
+        .section-title {
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 300;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+        }
+        
+        .section-description {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 3D Product Section - Carousel */
+        .product-showcase {
+            background: var(--off-black);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .carousel-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .carousel-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 32px;
+        }
+        
+        .carousel-btn {
+            background: var(--warm-white);
+            color: var(--black);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-btn:hover {
+            background: var(--gold);
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        .carousel-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+        
+        .product-indicators {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .indicator {
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--gray);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .indicator.active {
+            background: var(--gold);
+            color: var(--black);
+            font-weight: 500;
+        }
+        
+        .indicator:hover:not(.active) {
+            color: var(--warm-white);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 500%;
+        }
+        
+        .product-slide {
+            width: 20%;
+            flex-shrink: 0;
+            opacity: 0.7;
+            transform: scale(0.95);
+            transition: all 0.8s ease;
+        }
+        
+        .product-slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            padding: 40px;
+        }
+        
+        .product-3d {
+            height: 600px;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .canvas-container {
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+        }
+        
+        .canvas-container:active {
+            cursor: grabbing;
+        }
+        
+        .product-info h3 {
+            font-size: 36px;
+            font-weight: 300;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+        
+        .product-info p {
+            font-size: 16px;
+            color: var(--gray);
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin-bottom: 48px;
+        }
+        
+        .feature-list li {
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Feature Cards */
+        .features {
+            background: var(--black);
+        }
+        
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin-top: 80px;
+        }
+        
+        .feature-card {
+            background: var(--off-black);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .feature-card-image {
+            height: 360px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .feature-card-content {
+            padding: 32px;
+        }
+        
+        .feature-card h4 {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Metrics Section */
+        .metrics {
+            background: linear-gradient(180deg, var(--off-black) 0%, var(--black) 100%);
+            text-align: center;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-top: 80px;
+        }
+        
+        .metric {
+            padding: 40px 20px;
+        }
+        
+        .metric-value {
+            font-size: 56px;
+            font-weight: 300;
+            color: var(--gold);
+            margin-bottom: 8px;
+            letter-spacing: -2px;
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            color: var(--gray);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background: var(--black);
+            position: relative;
+        }
+        
+        .testimonial-slider {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+        
+        .testimonial-slide {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            text-align: center;
+            padding: 60px;
+        }
+        
+        .testimonial-slide.active {
+            opacity: 1;
+        }
+        
+        .testimonial-text {
+            font-size: 28px;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            font-size: 16px;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+        
+        /* Product Selection */
+        .product-selection {
+            margin: 80px 0 60px;
+            text-align: center;
+        }
+        
+        .selection-title {
+            font-size: 42px;
+            font-weight: 300;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+            color: var(--warm-white);
+        }
+        
+        .selection-subtitle {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .product-grid-selection {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .product-option {
+            background: var(--off-black);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 48px 32px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-option:hover {
+            transform: translateY(-12px);
+            border-color: rgba(212, 175, 55, 0.6);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, var(--off-black) 0%, rgba(26, 26, 26, 0.95) 100%);
+        }
+        
+        .product-option.selected {
+            border-color: var(--gold);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 0 80px rgba(212, 175, 55, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .product-option.selected::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .product-option.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--gold);
+            color: var(--black);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+        }
+        
+        .product-option-image {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .product-icon-img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            filter: grayscale(1) brightness(0.6) contrast(1.2);
+            transition: all 0.4s ease;
+            border-radius: 12px;
+        }
+        
+        .product-option:hover .product-icon-img {
+            filter: grayscale(0.3) brightness(0.9) contrast(1.1);
+            transform: scale(1.08);
+        }
+        
+        .product-option.selected .product-icon-img {
+            filter: grayscale(0) brightness(1) contrast(1);
+            transform: scale(1.12);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+        }
+        
+        .product-option-content {
+            text-align: center;
+            width: 100%;
+        }
+        
+        .product-option-content h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--warm-white);
+            transition: color 0.3s ease;
+            line-height: 1.3;
+        }
+        
+        .product-option.selected .product-option-content h4 {
+            color: var(--gold);
+        }
+        
+        .product-option-content p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.4;
+            font-weight: 400;
+        }
+        
+        .product-option.selected .product-option-content p {
+            color: rgba(212, 175, 55, 0.8);
+        }
+        
+        /* Selection indicator */
+        .selection-indicator {
+            margin: 32px 0;
+            padding: 16px 24px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 14px;
+            color: var(--gold);
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+        
+        .selection-indicator.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            text-align: center;
+            padding: 160px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-title {
+            font-size: clamp(48px, 6vw, 80px);
+            font-weight: 300;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+        }
+        
+        .cta-subtitle {
+            font-size: 20px;
+            color: var(--gray);
+            margin-bottom: 48px;
+        }
+
+        /* REDESIGNED Full-Width Coupon Styles */
+        .coupon-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .coupon {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border: 3px solid var(--gold);
+            border-radius: 0;
+            padding: 60px 80px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            animation: couponPulse 4s ease-in-out infinite;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 60px rgba(212, 175, 55, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .coupon:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.4),
+                0 0 80px rgba(212, 175, 55, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Enhanced pulse with subtle glow */
+        @keyframes couponPulse {
+            0%, 100% { 
+                border-color: var(--gold);
+                box-shadow: 
+                    0 20px 40px rgba(0, 0, 0, 0.3),
+                    0 0 60px rgba(212, 175, 55, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            }
+            50% { 
+                border-color: #f4d976;
+                box-shadow: 
+                    0 25px 50px rgba(0, 0, 0, 0.4),
+                    0 0 80px rgba(244, 217, 118, 0.25),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            }
+        }
+
+        /* Side notches for classic coupon look */
+        .coupon::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: var(--black);
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+        }
+
+        .coupon::after {
+            content: '';
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: var(--black);
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+        }
+
+        /* Coupon content layout - side by side */
+        .coupon-content {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .coupon-left {
+            text-align: left;
+        }
+
+        .coupon-center {
+            text-align: center;
+            padding: 0 40px;
+            border-left: 2px dashed rgba(212, 175, 55, 0.3);
+            border-right: 2px dashed rgba(212, 175, 55, 0.3);
+        }
+
+        .coupon-right {
+            text-align: right;
+        }
+
+        .coupon-header {
+            margin-bottom: 24px;
+        }
+
+        .coupon-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--black);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .coupon-title {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .coupon-subtitle {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 0;
+        }
+
+        .coupon-offer {
+            text-align: center;
+        }
+
+        .coupon-discount {
+            font-size: 48px;
+            font-weight: 300;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 12px;
+            letter-spacing: -2px;
+            animation: discountPulse 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+
+        .coupon-details {
+            font-size: 16px;
+            color: var(--warm-white);
+            margin-bottom: 8px;
+        }
+
+        .coupon-bonus {
+            font-size: 12px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+
+        .coupon-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .email-field {
+            position: relative;
+        }
+
+        .email-label {
+            font-size: 11px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .coupon-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--warm-white);
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .coupon-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.08);
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .coupon-button {
+            padding: 16px 24px;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coupon-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            background: #f4d976;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        /* EPIC Redeem Animation */
+        .coupon.redeemed {
+            animation: couponTransform 2s ease-out forwards;
+        }
+
+        @keyframes couponTransform {
+            0% {
+                transform: scale(1);
+                border-color: var(--gold);
+            }
+            25% {
+                transform: scale(1.02) rotateX(5deg);
+                border-color: #00ff88;
+                box-shadow: 
+                    0 40px 80px rgba(0, 0, 0, 0.5),
+                    0 0 120px rgba(0, 255, 136, 0.6),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                transform: scale(1.05) rotateX(-2deg);
+                filter: brightness(1.2);
+            }
+            75% {
+                transform: scale(1.03) rotateX(1deg);
+            }
+            100% {
+                transform: scale(1.02);
+                border-color: #00ff88;
+                background: linear-gradient(135deg, #1a4a1a 0%, #2a5a2a 100%);
+                box-shadow: 
+                    0 30px 60px rgba(0, 0, 0, 0.4),
+                    0 0 100px rgba(0, 255, 136, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .success-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
+            color: var(--black);
+            padding: 32px 48px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 24px;
+            opacity: 0;
+            scale: 0.5;
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 10;
+            box-shadow: 
+                0 20px 40px rgba(0, 255, 136, 0.3),
+                0 0 60px rgba(0, 255, 136, 0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .success-message.show {
+            opacity: 1;
+            scale: 1;
+        }
+
+        /* Celebration confetti effect */
+        .coupon.redeemed::before {
+            content: '🎉';
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            font-size: 32px;
+            animation: confetti1 2s ease-out;
+            z-index: 5;
+        }
+
+        .coupon.redeemed::after {
+            content: '✨';
+            position: absolute;
+            top: 30px;
+            right: 60px;
+            font-size: 28px;
+            animation: confetti2 2s ease-out;
+            z-index: 5;
+        }
+
+        @keyframes confetti1 {
+            0% { 
+                opacity: 0; 
+                transform: translateY(20px) rotate(0deg) scale(0); 
+            }
+            30% { 
+                opacity: 1; 
+                transform: translateY(-10px) rotate(180deg) scale(1.2); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-50px) rotate(360deg) scale(0.8); 
+            }
+        }
+
+        @keyframes confetti2 {
+            0% { 
+                opacity: 0; 
+                transform: translateY(20px) rotate(0deg) scale(0); 
+            }
+            40% { 
+                opacity: 1; 
+                transform: translateY(-15px) rotate(-180deg) scale(1.1); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-40px) rotate(-360deg) scale(0.9); 
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--off-black);
+            padding: 80px 0 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-brand h4 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            font-weight: 400;
+        }
+        
+        .footer-brand p {
+            color: var(--gray);
+            font-size: 14px;
+            line-height: 1.8;
+            max-width: 300px;
+        }
+        
+        .footer-column h5 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--warm-white);
+            font-weight: 500;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--warm-white);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 12px;
+        }
+        
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========================================= */
+        /* 📱 MOBILE CSS - CONSOLIDATED SECTION     */
+        /* ========================================= */
+
+        /* WHOOP-Style Full-Screen Mobile Experience */
+        @media (max-width: 768px) {
+            body {
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
+            }
+            
+            /* Hide navigation on mobile for full-screen effect */
+            nav {
+                display: none;
+            }
+            
+            .hero {
+                position: relative;
+                height: 100vh;
+                height: 100dvh;
+                width: 100vw;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            
+            .video-background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+            }
+            
+            .video-background iframe {
+                position: absolute;
+                height: 100vh;
+                height: 100dvh;
+                min-width: 100vw;
+                min-height: 100vh;
+                min-height: 100dvh;
+                border: none;
+                z-index: 1;
+                object-fit: cover;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover;
+            }
+            
+            .hero-content {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 2rem 1.5rem;
+                text-align: center;
+                z-index: 10;
+                background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.5) 100%);
+            }
+            
+            .hero-title {
+                font-size: 2.8rem !important;
+                font-weight: 700 !important;
+                line-height: 1.1 !important;
+                margin: 0 0 1.5rem 0 !important;
+                color: white !important;
+                text-shadow: 0 4px 12px rgba(0,0,0,0.8) !important;
+                max-width: 90%;
+                letter-spacing: -1px !important;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem !important;
+                line-height: 1.5 !important;
+                margin: 0 0 2.5rem 0 !important;
+                color: rgba(255,255,255,0.9) !important;
+                text-shadow: 0 2px 8px rgba(0,0,0,0.7) !important;
+                max-width: 85%;
+                font-weight: 400 !important;
+            }
+            
+            .hero-cta {
+                background: white !important;
+                color: #000 !important;
+                padding: 1.2rem 2.5rem !important;
+                font-size: 1.1rem !important;
+                font-weight: 600 !important;
+                border: none !important;
+                border-radius: 30px !important;
+                text-decoration: none !important;
+                transition: all 0.3s ease !important;
+                box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
+                text-shadow: none !important;
+                display: inline-block;
+            }
+            
+            .hero-cta:hover {
+                transform: translateY(-2px) !important;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.4) !important;
+            }
+            
+            .hero-subtitle {
+                font-size: 0.9rem !important;
+                margin-bottom: 1rem !important;
+                color: var(--gold) !important;
+                text-shadow: 0 2px 8px rgba(0,0,0,0.7) !important;
+            }
+
+            /* 3D Models - Stack Above Description on Mobile */
+            .product-grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+                padding: 20px !important;
+            }
+            
+            .product-3d {
+                height: 300px !important;
+                order: -1;
+                margin-bottom: 1rem;
+            }
+            
+            .product-info {
+                order: 1;
+            }
+            
+            .product-info h3 {
+                font-size: 24px !important;
+                margin-bottom: 16px !important;
+            }
+            
+            .product-info p {
+                font-size: 14px !important;
+                line-height: 1.6 !important;
+                margin-bottom: 20px !important;
+            }
+            
+            .feature-list {
+                margin-bottom: 32px !important;
+            }
+            
+            .feature-list li {
+                padding: 12px 0 !important;
+                font-size: 14px !important;
+            }
+
+            /* Carousel Navigation - Mobile Optimized */
+            .carousel-nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .product-indicators {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+            
+            .indicator {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            /* Sections - Mobile Spacing */
+            section {
+                padding: 60px 0 !important;
+            }
+            
+            .container {
+                padding: 0 20px !important;
+            }
+            
+            .section-header {
+                margin-bottom: 40px !important;
+            }
+            
+            .section-title {
+                font-size: 2rem !important;
+                margin-bottom: 16px !important;
+            }
+            
+            .section-description {
+                font-size: 16px !important;
+            }
+
+            /* Feature Cards - Mobile Grid */
+            .feature-cards {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+                margin-top: 40px !important;
+            }
+            
+            .feature-card-image {
+                height: 200px !important;
+            }
+            
+            .feature-card-content {
+                padding: 20px !important;
+            }
+            
+            .feature-card h4 {
+                font-size: 20px !important;
+            }
+
+            /* Metrics - Mobile Grid */
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 20px !important;
+                margin-top: 40px !important;
+            }
+            
+            .metric {
+                padding: 20px 10px !important;
+            }
+            
+            .metric-value {
+                font-size: 32px !important;
+            }
+            
+            .metric-label {
+                font-size: 12px !important;
+            }
+
+            /* Testimonials - Mobile */
+            .testimonial-slide {
+                padding: 30px 20px !important;
+            }
+            
+            .testimonial-text {
+                font-size: 18px !important;
+                margin-bottom: 20px !important;
+            }
+            
+            .testimonial-author {
+                font-size: 14px !important;
+            }
+
+            /* Product Selection - Mobile Grid */
+            .product-grid-selection {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 16px !important;
+                max-width: 100% !important;
+            }
+            
+            .product-option {
+                padding: 32px 20px !important;
+                min-height: 200px !important;
+            }
+            
+            .product-icon-img {
+                width: 80px !important;
+                height: 80px !important;
+            }
+            
+            .product-option-content h4 {
+                font-size: 16px !important;
+            }
+            
+            .product-option-content p {
+                font-size: 12px !important;
+            }
+
+            /* CTA Section - Mobile */
+            .cta-section {
+                padding: 80px 0 !important;
+            }
+            
+            .cta-title {
+                font-size: 2.5rem !important;
+                margin-bottom: 16px !important;
+            }
+            
+            .cta-subtitle {
+                font-size: 16px !important;
+                margin-bottom: 32px !important;
+            }
+            
+            .selection-title {
+                font-size: 28px !important;
+                margin-bottom: 12px !important;
+            }
+            
+            .selection-subtitle {
+                font-size: 14px !important;
+                margin-bottom: 32px !important;
+            }
+
+            /* Coupon - Mobile Layout */
+            .coupon {
+                padding: 30px 20px !important;
+                margin: 0 10px !important;
+            }
+            
+            .coupon-content {
+                grid-template-columns: 1fr !important;
+                gap: 30px !important;
+                text-align: center !important;
+            }
+            
+            .coupon-center {
+                border: none !important;
+                border-top: 2px dashed rgba(212, 175, 55, 0.3) !important;
+                border-bottom: 2px dashed rgba(212, 175, 55, 0.3) !important;
+                padding: 20px 0 !important;
+            }
+            
+            .coupon-left,
+            .coupon-right {
+                text-align: center !important;
+            }
+            
+            .coupon-title {
+                font-size: 20px !important;
+            }
+            
+            .coupon-discount {
+                font-size: 36px !important;
+            }
+            
+            .coupon-details {
+                font-size: 14px !important;
+            }
+
+            /* Footer - Mobile */
+            footer {
+                padding: 40px 0 20px !important;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr !important;
+                gap: 30px !important;
+                margin-bottom: 30px !important;
+                padding: 0 20px !important;
+                text-align: center;
+            }
+            
+            .footer-brand p {
+                max-width: 100% !important;
+                margin: 0 auto;
+            }
+        }
+
+        /* Tablet - Medium Screens */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: 1fr !important;
+                gap: 40px !important;
+            }
+            
+            .product-3d {
+                height: 400px !important;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr !important;
+            }
+            
+            .product-grid-selection {
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 20px !important;
+            }
+        }
+
+        /* Small Mobile - Extra Responsive */
+        @media (max-width: 480px) {
+            .product-grid-selection {
+                grid-template-columns: 1fr !important;
+                gap: 16px !important;
+                max-width: 280px !important;
+                margin: 0 auto !important;
+            }
+            
+            .product-option {
+                padding: 24px 16px !important;
+                min-height: 180px !important;
+            }
+            
+            .product-icon-img {
+                width: 60px !important;
+                height: 60px !important;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem !important;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+            
+            .coupon {
+                padding: 20px 15px !important;
+                margin: 0 5px !important;
+            }
+            
+            .coupon-title {
+                font-size: 18px !important;
+            }
+            
+            .coupon-discount {
+                font-size: 28px !important;
+            }
+        }
+
+        /* Selection and Button Animations */
+        @keyframes selectionPulse {
+            0% { transform: translateY(-4px) scale(1.05); }
+            50% { transform: translateY(-8px) scale(1.1); }
+            100% { transform: translateY(-4px) scale(1.05); }
+        }
+        
+        .coupon-button:disabled {
+            background: var(--gray) !important;
+            color: var(--off-black) !important;
+            cursor: not-allowed !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        .coupon-button:disabled:hover {
+            background: var(--gray) !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        @keyframes ctaPulse {
+            0% { 
+                transform: scale(1);
+                border-color: var(--gold);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 60px rgba(212, 175, 55, 0.15);
+            }
+            50% { 
+                transform: scale(1.02);
+                border-color: #f4d976;
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 100px rgba(244, 217, 118, 0.4);
+            }
+            100% { 
+                transform: scale(1);
+                border-color: var(--gold);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 60px rgba(212, 175, 55, 0.15);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">SUNFORGE</div>
+            <ul class="nav-links">
+                <li><a href="#equipment">Equipment</a></li>
+                <li><a href="#transformation">Transformation</a></li>
+                <li><a href="#truth">The Truth</a></li>
+                <li><a href="#brotherhood">Brotherhood</a></li>
+            </ul>
+            <a href="#" class="nav-cta">Stop Being Pale</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video Background -->
+    <section class="hero">
+        <div class="video-background">
+            <iframe src="https://player.vimeo.com/video/1093503454?h=766eb71257&autoplay=1&muted=1&loop=1&background=1&controls=0" 
+                    frameborder="0" 
+                    allow="autoplay; fullscreen; encrypted-media" 
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover;">
+            </iframe>
+        </div>
+        <div class="video-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle">Stop Poisoning Your Skin</p>
+            <h1 class="hero-title">From Pale Zombie to Bronze God</h1>
+            <p class="hero-description">
+                Track your solar gains like gym gains. Build sun resistance. Boost testosterone naturally. Stop guessing about God's medicine.
+            </p>
+            <a href="#" class="hero-cta">Start Your Transformation</a>
+        </div>
+    </section>
+
+    <!-- 3D Product Showcase Carousel -->
+    <section class="product-showcase" id="equipment">
+        <div class="container">
+            <!-- Carousel Navigation -->
+            <div class="carousel-header">
+                <p class="section-subtitle">Solar Training Equipment</p>
+                <h2 class="section-title">Track Your Sun Gains</h2>
+                <div class="carousel-nav">
+                    <button class="carousel-btn prev-btn" id="prevBtn">‹</button>
+                    <div class="product-indicators">
+                        <span class="indicator active" data-product="0">Tracker</span>
+                        <span class="indicator" data-product="1">Protection</span>
+                        <span class="indicator" data-product="2">Coverage</span>
+                        <span class="indicator" data-product="3">Monitor</span>
+                        <span class="indicator" data-product="4">Power</span>
+                    </div>
+                    <button class="carousel-btn next-btn" id="nextBtn">›</button>
+                </div>
+            </div>
+            
+            <!-- Carousel Container -->
+            <div class="carousel-container">
+                <div class="carousel-track" id="carouselTrack">
+                    
+                    <!-- Solar Tracker -->
+                    <div class="product-slide active">
+                        <div class="product-grid">
+                            <div class="product-3d">
+                                <div id="canvas-container-bracelet" class="canvas-container"></div>
+                            </div>
+                            <div class="product-info fade-in">
+                                <h3>UV Precision Tracker</h3>
+                                <p>
+                                    Stop playing guessing games with your vitamin D. Military-grade UV sensors track every photon hitting your skin. Know exactly when you've hit optimal exposure. No more supplements. No more deficiency. Just pure solar optimization.
+                                </p>
+                                <ul class="feature-list">
+                                    <li>
+                                        <div class="feature-icon">⚡</div>
+                                        <span>Real-time vitamin D synthesis tracking</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">📊</div>
+                                        <span>Testosterone optimization through precise sun exposure</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">🔋</div>
+                                        <span>Solar-powered - 14 days on God's energy</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">💪</div>
+                                        <span>Aerospace titanium - built like your mindset</span>
+                                    </li>
+                                </ul>
+                                <a href="#" class="hero-cta">Track Your Power</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Protection Glasses -->
+                    <div class="product-slide">
+                        <div class="product-grid">
+                            <div class="product-3d">
+                                <div id="canvas-container-sunglasses" class="canvas-container"></div>
+                            </div>
+                            <div class="product-info fade-in">
+                                <h3>Elite Vision Protection</h3>
+                                <p>
+                                    Block the blue light prison. Filter harmful wavelengths while letting beneficial light through. Protect your eyes from digital poison while optimizing your circadian rhythm. Crystal clarity meets solar intelligence.
+                                </p>
+                                <ul class="feature-list">
+                                    <li>
+                                        <div class="feature-icon">🛡️</div>
+                                        <span>Blue light assassination - protect your sleep</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">🧠</div>
+                                        <span>Circadian rhythm optimization technology</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">👁️</div>
+                                        <span>Zero distortion - maximum protection</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">⚙️</div>
+                                        <span>Photochromic adaptation - smart like you</span>
+                                    </li>
+                                </ul>
+                                <a href="#" class="hero-cta">Protect Your Assets</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Strategic Coverage -->
+                    <div class="product-slide">
+                        <div class="product-grid">
+                            <div class="product-3d">
+                                <div id="canvas-container-hat" class="canvas-container"></div>
+                            </div>
+                            <div class="product-info fade-in">
+                                <h3>Strategic Solar Coverage</h3>
+                                <p>
+                                    Tactical shade deployment. Protect your scalp while maximizing body exposure. Smart ventilation keeps you cool while integrated sensors monitor your vitamin D synthesis through strategic openings.
+                                </p>
+                                <ul class="feature-list">
+                                    <li>
+                                        <div class="feature-icon">🎯</div>
+                                        <span>Strategic vitamin D windows in crown design</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">🛡️</div>
+                                        <span>UPF 50+ scalp protection where needed</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">❄️</div>
+                                        <span>Temperature regulation system</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">💧</div>
+                                        <span>Moisture-wicking performance technology</span>
+                                    </li>
+                                </ul>
+                                <a href="#" class="hero-cta">Deploy Smart Shade</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Health Monitor -->
+                    <div class="product-slide">
+                        <div class="product-grid">
+                            <div class="product-3d">
+                                <div id="canvas-container-ring" class="canvas-container"></div>
+                            </div>
+                            <div class="product-info fade-in">
+                                <h3>Biometric Power Monitor</h3>
+                                <p>
+                                    Track your body's response to solar optimization. Monitor heart rate variability, stress, and recovery while the solar cell powers continuous health surveillance. Your body becomes a precision instrument.
+                                </p>
+                                <ul class="feature-list">
+                                    <li>
+                                        <div class="feature-icon">📈</div>
+                                        <span>Continuous vitals monitoring with solar charging</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">❤️</div>
+                                        <span>Heart rate variability and stress optimization</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">😴</div>
+                                        <span>Sleep quality and recovery analytics</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">🔧</div>
+                                        <span>Titanium construction - unbreakable commitment</span>
+                                    </li>
+                                </ul>
+                                <a href="#" class="hero-cta">Monitor Your Power</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Power Chain -->
+                    <div class="product-slide">
+                        <div class="product-grid">
+                            <div class="product-3d">
+                                <div id="canvas-container-chain" class="canvas-container"></div>
+                            </div>
+                            <div class="product-info fade-in">
+                                <h3>Solar Power Chain</h3>
+                                <p>
+                                    More than jewelry - a statement of solar dominance. Embedded solar cells charge your devices while micro-sensors track breathing patterns and core temperature. Wear your commitment to optimization.
+                                </p>
+                                <ul class="feature-list">
+                                    <li>
+                                        <div class="feature-icon">🔋</div>
+                                        <span>Device charging through solar cell integration</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">🫁</div>
+                                        <span>Respiratory and cardiac monitoring system</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">🌡️</div>
+                                        <span>Core temperature regulation feedback</span>
+                                    </li>
+                                    <li>
+                                        <div class="feature-icon">⚡</div>
+                                        <span>Magnetic charging ports in titanium links</span>
+                                    </li>
+                                </ul>
+                                <a href="#" class="hero-cta">Show Your Status</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transformation Section -->
+    <section class="features" id="transformation">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Stop Living Like A Zombie</p>
+                <h2 class="section-title">Transform Your Biology</h2>
+                <p class="section-description">
+                    Stop coping with supplements. Stop slathering cancer cream on your skin. Start optimizing your testosterone through God's medicine. Track it like you track your lifts.
+                </p>
+            </div>
+            
+            <div class="feature-cards">
+                <div class="feature-card fade-in">
+                    <div class="feature-card-image">
+                        <img src="img1.png" alt="Testosterone Optimization" />
+                    </div>
+                    <div class="feature-card-content">
+                        <h4>Boost Testosterone Naturally</h4>
+                        <p>Stop feeling weak. Vitamin D directly boosts testosterone production. Track your synthesis in real-time. Feel the difference in strength, confidence, and energy.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="feature-card-image">
+                        <img src="img2.png" alt="Bronze Aesthetics" />
+                    </div>
+                    <div class="feature-card-content">
+                        <h4>Get That Bronze God Look</h4>
+                        <p>Build sun resistance like muscle. Progressive exposure without burning. Look jacked and tanned year-round. Stop being pale and weak.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="feature-card-image">
+                        <img src="img3.jpeg" alt="Energy Optimization" />
+                    </div>
+                    <div class="feature-card-content">
+                        <h4>Wake Up With Energy</h4>
+                        <p>Synchronize with natural light cycles. Deep sleep, morning energy, hormonal optimization. Your ancestors didn't need coffee to feel alive.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Truth Section -->
+    <section class="metrics" id="truth">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Face The Facts</p>
+                <h2 class="section-title">Your Indoor Life Is Destroying You</h2>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric fade-in">
+                    <div class="metric-value">73%</div>
+                    <div class="metric-label">Testosterone Decline Since 1970</div>
+                </div>
+                <div class="metric fade-in">
+                    <div class="metric-value">42%</div>
+                    <div class="metric-label">Adults Vitamin D Deficient</div>
+                </div>
+                <div class="metric fade-in">
+                    <div class="metric-value">200+</div>
+                    <div class="metric-label">Genes Controlled by Vitamin D</div>
+                </div>
+                <div class="metric fade-in">
+                    <div class="metric-value">7sec</div>
+                    <div class="metric-label">Sun to Vitamin D Conversion</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brotherhood Section -->
+    <section class="testimonials" id="brotherhood">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">The Transformed</p>
+                <h2 class="section-title">Bronze Legion Success Stories</h2>
+            </div>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial-slide active">
+                    <p class="testimonial-text">
+                        "Day 47 with SUNFORGE: My manager asked if I'm on TRT. I'm not. My vitamin D went from 12 to 68 ng/mL. I look like I'm made of bronze and I feel like a god."
+                    </p>
+                    <p class="testimonial-author">Marcus T., Former Office Slave</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Stop Being A Pale Zombie</h2>
+            <p class="cta-subtitle">Join 12,847+ men escaping their fluorescent prison</p>
+            
+            <!-- Product Selection -->
+            <div class="product-selection">
+                <h3 class="selection-title">Choose Your Solar Equipment</h3>
+                <p class="selection-subtitle">Pick the tool that matches your commitment level</p>
+                
+                <div class="product-grid-selection">
+                    <div class="product-option" data-product="tracker">
+                        <div class="product-option-image">
+                            <img src="bracelet-icon.png" alt="UV Tracker" class="product-icon-img">
+                        </div>
+                        <div class="product-option-content">
+                            <h4>UV Tracker</h4>
+                            <p>Precision Tool</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="protection">
+                        <div class="product-option-image">
+                            <img src="sunglasses-icon.png" alt="Vision Protection" class="product-icon-img">
+                        </div>
+                        <div class="product-option-content">
+                            <h4>Vision Shield</h4>
+                            <p>Blue Light Killer</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="coverage">
+                        <div class="product-option-image">
+                            <img src="hat-icon.png" alt="Strategic Coverage" class="product-icon-img">
+                        </div>
+                        <div class="product-option-content">
+                            <h4>Tactical Cap</h4>
+                            <p>Smart Coverage</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="monitor">
+                        <div class="product-option-image">
+                            <img src="ring-icon.png" alt="Health Monitor" class="product-icon-img">
+                        </div>
+                        <div class="product-option-content">
+                            <h4>Power Monitor</h4>
+                            <p>Health Tracking</p>
+                        </div>
+                    </div>
+                    
+                    <div class="product-option" data-product="power">
+                        <div class="product-option-image">
+                            <img src="chain-icon.png" alt="Power Chain" class="product-icon-img">
+                        </div>
+                        <div class="product-option-content">
+                            <h4>Power Chain</h4>
+                            <p>Status Symbol</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="coupon-container">
+                <div class="coupon" id="solar-coupon">
+                    <div class="coupon-content">
+                        <div class="coupon-left">
+                            <div class="coupon-header">
+                                <span class="coupon-badge">Early Access Only</span>
+                                <h3 class="coupon-title">BRONZE LEGION MEMBERSHIP</h3>
+                                <p class="coupon-subtitle">Transform from pale zombie to bronze god</p>
+                            </div>
+                        </div>
+                        
+                        <div class="coupon-center">
+                            <div class="coupon-offer">
+                                <div class="coupon-discount">50% OFF</div>
+                                <div class="coupon-details" id="selected-product-text">Select Your Equipment Above</div>
+                                <div class="coupon-bonus">+ Bronze Legion Access Forever</div>
+                            </div>
+                        </div>
+                        
+                        <div class="coupon-right">
+                            <form class="coupon-form" id="bronze-form">
+                                <div class="selection-indicator" id="selection-indicator">
+                                    ⚡ <span id="selected-product-name">No equipment selected</span> - Ready for transformation
+                                </div>
+                                
+                                <div class="email-field">
+                                    <div class="email-label">Future Bronze God Email:</div>
+                                    <input type="email" class="coupon-input" placeholder="future.bronzegod@domain.com" required>
+                                </div>
+                                
+                                <input type="hidden" id="selected-product-input" name="product" value="">
+                                
+                                <button type="submit" class="coupon-button" id="claim-button" disabled>
+                                    SELECT EQUIPMENT FIRST
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="success-message" id="success-msg">
+                        ☀️ Welcome to the Bronze Legion! Check your email for transformation protocols.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h4>SUNFORGE</h4>
+                <p>Your ancestors conquered under the sun. You're getting vitamin D deficiency under LEDs. SUNFORGE bridges 300,000 years of evolution with precision tracking. The transformation starts now.</p>
+            </div>
+            
+            <div class="footer-column">
+                <h5>Equipment</h5>
+                <ul>
+                    <li><a href="#">UV Tracking</a></li>
+                    <li><a href="#">Solar Training</a></li>
+                    <li><a href="#">Testosterone Boost</a></li>
+                    <li><a href="#">Bronze Protocols</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h5>Legion</h5>
+                <ul>
+                    <li><a href="#">Manifesto</a></li>
+                    <li><a href="#">Brotherhood</a></li>
+                    <li><a href="#">Transformations</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="#">Solar Protocols</a></li>
+                    <li><a href="#">Training Guide</a></li>
+                    <li><a href="#">Legion Access</a></li>
+                    <li><a href="#">Lifetime Warranty</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 SUNFORGE. Forged by the sun. | Terms | Privacy</p>
+        </div>
+    </footer>
+
+    <!-- Three.js for 3D Model -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <script>
+  // Smooth scroll for navigation links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Scroll animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, observerOptions);
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Carousel Navigation
+  let currentSlide = 0;
+  const totalSlides = 5;
+  const track = document.getElementById('carouselTrack');
+  const indicators = document.querySelectorAll('.indicator');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const slides = document.querySelectorAll('.product-slide');
+
+  function updateCarousel() {
+    // Move carousel track
+    const translateX = -currentSlide * (100 / totalSlides);
+    track.style.transform = `translateX(${translateX}%)`;
+    
+    // Update indicators
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === currentSlide);
+    });
+    
+    // Update slide active states
+    slides.forEach((slide, index) => {
+      slide.classList.toggle('active', index === currentSlide);
+    });
+    
+    // Update button states
+    prevBtn.disabled = currentSlide === 0;
+    nextBtn.disabled = currentSlide === totalSlides - 1;
+  }
+
+  function nextSlide() {
+    if (currentSlide < totalSlides - 1) {
+      currentSlide++;
+      updateCarousel();
+      initializeCurrentModel();
+    }
+  }
+
+  function prevSlide() {
+    if (currentSlide > 0) {
+      currentSlide--;
+      updateCarousel();
+      initializeCurrentModel();
+    }
+  }
+
+  function goToSlide(index) {
+    currentSlide = index;
+    updateCarousel();
+    initializeCurrentModel();
+  }
+
+  // Event listeners
+  nextBtn.addEventListener('click', nextSlide);
+  prevBtn.addEventListener('click', prevSlide);
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => goToSlide(index));
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') prevSlide();
+    if (e.key === 'ArrowRight') nextSlide();
+  });
+
+  // Touch/swipe support
+  let startX = 0;
+  let endX = 0;
+  
+  track.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+  });
+  
+  track.addEventListener('touchend', (e) => {
+    endX = e.changedTouches[0].clientX;
+    const diff = startX - endX;
+    
+    if (Math.abs(diff) > 50) { // Minimum swipe distance
+      if (diff > 0) nextSlide();
+      else prevSlide();
+    }
+  });
+
+  // Three.js Setup for Multiple Products
+  const productConfigs = [
+    { id: 'bracelet', file: 'bracelet.gltf', color: 0xD4AF37 },
+    { id: 'sunglasses', file: 'sunglasses.gltf', color: 0x333333 },
+    { id: 'hat', file: 'hat.gltf', color: 0x8B4513 },
+    { id: 'ring', file: 'ring.gltf', color: 0xD4AF37 },
+    { id: 'chain', file: 'chain.gltf', color: 0xC0C0C0 }
+  ];
+
+  const models = {};
+  const scenes = {};
+  const cameras = {};
+  const renderers = {};
+  const controls = {};
+
+  function initializeThreeJS() {
+    productConfigs.forEach((config, index) => {
+      const container = document.getElementById(`canvas-container-${config.id}`);
+      if (!container) return;
+
+      // Scene setup
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+
+      // Lighting
+      scene.add(new THREE.AmbientLight(0xffffff, 8));
+      const dirLight = new THREE.DirectionalLight(0xffffff, 8);
+      dirLight.position.set(5, 10, 5);
+      scene.add(dirLight);
+
+      // Controls
+      const control = new THREE.OrbitControls(camera, renderer.domElement);
+      control.enableDamping = true;
+      control.dampingFactor = 0.05;
+      control.rotateSpeed = 0.5;
+      control.enableZoom = false;
+      control.autoRotate = false;
+
+      // Store references
+      scenes[config.id] = scene;
+      cameras[config.id] = camera;
+      renderers[config.id] = renderer;
+      controls[config.id] = control;
+
+      // Create placeholder geometry
+      const geometry = getPlaceholderGeometry(config.id);
+      const material = new THREE.MeshStandardMaterial({
+        color: config.color,
+        metalness: 0.8,
+        roughness: 0.2
+      });
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+      models[config.id] = mesh;
+
+      // Position camera
+      camera.position.set(0, 0.8, 4);
+      camera.lookAt(0, 0, 0);
+      control.target.set(0, 0, 0);
+      control.update();
+
+      // Try to load actual model
+      loadProductModel(config, scene, control, camera);
+    });
+  }
+
+  function getPlaceholderGeometry(productId) {
+    switch (productId) {
+      case 'bracelet':
+        return new THREE.TorusGeometry(1, 0.3, 8, 16);
+      case 'sunglasses':
+        return new THREE.BoxGeometry(3, 1, 0.3);
+      case 'hat':
+        return new THREE.ConeGeometry(1.5, 1, 8);
+      case 'ring':
+        return new THREE.TorusGeometry(0.8, 0.2, 8, 16);
+      case 'chain':
+        return new THREE.CylinderGeometry(0.1, 0.1, 3, 8);
+      default:
+        return new THREE.BoxGeometry(2, 0.5, 1);
+    }
+  }
+
+  function loadProductModel(config, scene, control, camera) {
+    const loader = new THREE.GLTFLoader();
+    loader.load(
+      config.file,
+      function (gltf) {
+        // Remove placeholder
+        const placeholder = models[config.id];
+        if (placeholder) scene.remove(placeholder);
+        
+        scene.add(gltf.scene);
+        models[config.id] = gltf.scene;
+
+        // Configure model positioning
+        const box = new THREE.Box3().setFromObject(gltf.scene);
+        const center = box.getCenter(new THREE.Vector3());
+        gltf.scene.position.sub(center);
+        
+        // Apply specific rotations and scaling based on product type
+        switch (config.id) {
+          case 'bracelet':
+            gltf.scene.rotation.set(0, 0, -22);
+            const braceletScale = 3.5;
+            gltf.scene.scale.multiplyScalar(braceletScale);
+            
+            control.target.set(0.1, 0, 0);
+            camera.position.set(0, 0.8, 0);
+            camera.lookAt(1, 1, 33);
+            camera.rotation.x = - Math.PI / 2;
+            break;
+          case 'sunglasses':
+            gltf.scene.rotation.set(0, 0.2, 0);
+            break;
+          case 'hat':
+            gltf.scene.rotation.set(0.1, 0, 0);
+            break;
+          case 'ring':
+            gltf.scene.rotation.set(0.5, 0, 0);
+            break;
+          case 'chain':
+            gltf.scene.rotation.set(0, 0, 0.1);
+            break;
+        }
+
+        const size = box.getSize(new THREE.Vector3());
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const scale = 3 / maxDim;
+        gltf.scene.scale.multiplyScalar(scale);
+
+        control.target.set(0, 0, 0);
+        control.update();
+      },
+      function (xhr) {
+        console.log(`${config.id}: ${(xhr.loaded / xhr.total * 100)}% loaded`);
+      },
+      function (error) {
+        console.error(`Error loading ${config.id}:`, error);
+      }
+    );
+  }
+
+  function initializeCurrentModel() {
+    // Only animate the current slide's model
+    Object.keys(models).forEach((key, index) => {
+      if (models[key] && index === currentSlide) {
+        // Reset rotation for current model
+        if (models[key].rotation) {
+          models[key].rotation.x = 0;
+          models[key].rotation.y = 0;
+          models[key].rotation.z = 0;
+        }
+      }
+    });
+  }
+
+  // Animation loop
+  function animate() {
+    requestAnimationFrame(animate);
+    
+    // Only animate current slide
+    Object.keys(models).forEach((key, index) => {
+      if (models[key] && index === currentSlide) {
+        if (models[key].rotation) {
+          models[key].rotation.x += 0.01;
+        }
+      }
+      
+      if (controls[key]) {
+        controls[key].update();
+      }
+      
+      if (renderers[key] && scenes[key] && cameras[key]) {
+        renderers[key].render(scenes[key], cameras[key]);
+      }
+    });
+  }
+
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    Object.keys(cameras).forEach(key => {
+      const container = document.getElementById(`canvas-container-${key}`);
+      if (container && cameras[key] && renderers[key]) {
+        cameras[key].aspect = container.clientWidth / container.clientHeight;
+        cameras[key].updateProjectionMatrix();
+        renderers[key].setSize(container.clientWidth, container.clientHeight);
+      }
+    });
+  });
+
+  // Initialize everything
+  setTimeout(() => {
+    initializeThreeJS();
+    updateCarousel();
+    animate();
+    initializeProductSelection();
+    initializeCTAButtons();
+  }, 100);
+
+  // Product Selection Functionality
+  let selectedProduct = null;
+  
+  const productData = {
+    tracker: {
+      name: 'UV Precision Tracker',
+      description: 'Precision Tool',
+      fullName: 'SUNFORGE UV Tracker'
+    },
+    protection: {
+      name: 'Elite Vision Protection',
+      description: 'Blue Light Killer',
+      fullName: 'SUNFORGE Vision Shield'
+    },
+    coverage: {
+      name: 'Strategic Solar Coverage',
+      description: 'Smart Coverage',
+      fullName: 'SUNFORGE Tactical Cap'
+    },
+    monitor: {
+      name: 'Biometric Power Monitor',
+      description: 'Health Tracking',
+      fullName: 'SUNFORGE Power Monitor'
+    },
+    power: {
+      name: 'Solar Power Chain',
+      description: 'Status Symbol',
+      fullName: 'SUNFORGE Power Chain'
+    }
+  };
+
+  function initializeProductSelection() {
+    const productOptions = document.querySelectorAll('.product-option');
+    const selectedProductText = document.getElementById('selected-product-text');
+    const selectedProductName = document.getElementById('selected-product-name');
+    const selectedProductInput = document.getElementById('selected-product-input');
+    const claimButton = document.getElementById('claim-button');
+    const selectionIndicator = document.getElementById('selection-indicator');
+
+    productOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const productId = option.dataset.product;
+        
+        // Remove previous selection
+        productOptions.forEach(opt => opt.classList.remove('selected'));
+        
+        // Add selection to clicked option
+        option.classList.add('selected');
+        
+        // Update selected product
+        selectedProduct = productId;
+        const product = productData[productId];
+        
+        // Update UI elements
+        selectedProductText.textContent = product.fullName;
+        selectedProductName.textContent = product.name;
+        selectedProductInput.value = productId;
+        
+        // Show selection indicator
+        selectionIndicator.classList.add('show');
+        
+        // Enable submit button
+        claimButton.disabled = false;
+        claimButton.textContent = `CLAIM ${product.name.toUpperCase()}`;
+        
+        // Add selection animation
+        option.style.animation = 'selectionPulse 0.6s ease-out';
+        setTimeout(() => {
+          option.style.animation = '';
+        }, 600);
+      });
+    });
+  }
+
+  document.getElementById('bronze-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    if (!selectedProduct) {
+        alert('Choose your equipment first, future bronze god!');
+        return;
+    }
+    
+    const email = e.target.querySelector('.coupon-input').value;
+    const product = selectedProduct;
+    const coupon = document.getElementById('solar-coupon');
+    const successMsg = document.getElementById('success-msg');
+    const submitButton = document.getElementById('claim-button');
+    
+    // Disable submit button and show loading state
+    submitButton.disabled = true;
+    submitButton.textContent = 'FORGING YOUR TRANSFORMATION...';
+    
+    try {
+        // Send data to Netlify function
+        const response = await fetch('/.netlify/functions/send-email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: email,
+                product: product
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok && result.success) {
+            // Success! Show celebration animation
+            const productName = productData[product].name;
+            successMsg.innerHTML = `☀️ Welcome to the Bronze Legion!<br/>Your ${productName} transformation begins now.<br/>🔥 Check your email for exclusive access!`;
+            
+            // Add success animation
+            coupon.classList.add('redeemed');
+            
+            // Create sparkle effects
+            createSparkles(coupon);
+            
+            // Show success message
+            setTimeout(() => {
+                successMsg.classList.add('show');
+            }, 500);
+            
+            // Reset form after delay
+            setTimeout(() => {
+                e.target.reset();
+                coupon.classList.remove('redeemed');
+                successMsg.classList.remove('show');
+                
+                // Reset product selection
+                document.querySelectorAll('.product-option').forEach(opt => opt.classList.remove('selected'));
+                selectedProduct = null;
+                document.getElementById('selected-product-text').textContent = 'Select Your Equipment Above';
+                document.getElementById('selected-product-name').textContent = 'No equipment selected';
+                document.getElementById('selection-indicator').classList.remove('show');
+                
+                // Reset submit button
+                submitButton.disabled = true;
+                submitButton.textContent = 'SELECT EQUIPMENT FIRST';
+            }, 5000);
+            
+        } else {
+            // Handle API error
+            throw new Error(result.error || 'Failed to send email');
+        }
+        
+    } catch (error) {
+        console.error('Error sending email:', error);
+        
+        // Show error message
+        successMsg.innerHTML = `❌ Connection failed. Your bronze transformation awaits - try again!`;
+        successMsg.style.background = 'linear-gradient(135deg, #ff4444 0%, #cc3333 100%)';
+        
+        setTimeout(() => {
+            successMsg.classList.add('show');
+        }, 100);
+        
+        // Reset error message after delay
+        setTimeout(() => {
+            successMsg.classList.remove('show');
+            successMsg.style.background = 'linear-gradient(135deg, #00ff88 0%, #00cc66 100%)';
+        }, 3000);
+        
+        // Re-enable submit button
+        submitButton.disabled = false;
+        submitButton.textContent = `CLAIM ${productData[product].name.toUpperCase()}`;
+    }
+});
+
+    // Create sparkle animation
+    function createSparkles(container) {
+        for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            container.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 2000);
+        }, i * 100);
+        }
+    }
+
+  // CTA Button Functionality - Scroll to Coupon
+  function scrollToCoupon() {
+    const couponSection = document.getElementById('solar-coupon');
+    if (couponSection) {
+      couponSection.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+      
+      // Add attention-grabbing pulse effect
+      const coupon = document.getElementById('solar-coupon');
+      coupon.style.animation = 'ctaPulse 1.5s ease-out';
+      setTimeout(() => {
+        coupon.style.animation = '';
+      }, 1500);
+    }
+  }
+
+  // Add click handlers to all CTA buttons
+  function initializeCTAButtons() {
+    // Navigation CTA
+    const navCTA = document.querySelector('.nav-cta');
+    if (navCTA) {
+      navCTA.addEventListener('click', (e) => {
+        e.preventDefault();
+        scrollToCoupon();
+      });
+    }
+
+    // Hero CTA
+    const heroCTA = document.querySelector('.hero-cta');
+    if (heroCTA) {
+      heroCTA.addEventListener('click', (e) => {
+        e.preventDefault();
+        scrollToCoupon();
+      });
+    }
+
+    // Product CTAs (all the product-specific buttons)
+    const productCTAs = document.querySelectorAll('.product-info .hero-cta');
+    productCTAs.forEach(cta => {
+      cta.addEventListener('click', (e) => {
+        e.preventDefault();
+        scrollToCoupon();
+      });
+    });
+
+    // Any other CTAs with the hero-cta class
+    const allCTAs = document.querySelectorAll('a[href="#"]:not(.nav-cta):not(.hero-cta)');
+    allCTAs.forEach(cta => {
+      // Check if it looks like a CTA button (has certain text patterns)
+      const text = cta.textContent.toLowerCase();
+      if (text.includes('track') || text.includes('protect') || text.includes('deploy') || 
+          text.includes('monitor') || text.includes('show') || text.includes('claim') ||
+          text.includes('master') || text.includes('optimize') || text.includes('command')) {
+        cta.addEventListener('click', (e) => {
+          e.preventDefault();
+          scrollToCoupon();
+        });
+      }
+    });
+  }
+
+  // Navigation scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+      nav.style.background = 'rgba(0, 0, 0, 0.95)';
+      nav.style.padding = '16px 0';
+    } else {
+      nav.style.background = 'rgba(0, 0, 0, 0.7)';
+      nav.style.padding = '24px 0';
+    }
+  });
+</script>
+
+</body>
+</html>
