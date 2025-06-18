@@ -2458,100 +2458,45 @@
     });
   }
 
-  document.getElementById('bronze-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    if (!selectedProduct) {
-        alert('Choose your equipment first, future bronze god!');
-        return;
-    }
-    
-    const email = e.target.querySelector('.coupon-input').value;
-    const product = selectedProduct;
-    const coupon = document.getElementById('solar-coupon');
-    const successMsg = document.getElementById('success-msg');
-    const submitButton = document.getElementById('claim-button');
-    
-    // Disable submit button and show loading state
-    submitButton.disabled = true;
-    submitButton.textContent = 'FORGING YOUR TRANSFORMATION...';
-    
-    try {
-        // Send data to Netlify function
-        const response = await fetch('/.netlify/functions/send-email', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: email,
-                product: product
-            })
-        });
+  // Coupon form submission with celebration
+  document.getElementById('bronze-form').addEventListener('submit', (e) => {
+        e.preventDefault();
         
-        const result = await response.json();
-        
-        if (response.ok && result.success) {
-            // Success! Show celebration animation
-            const productName = productData[product].name;
-            successMsg.innerHTML = `☀️ Welcome to the Bronze Legion!<br/>Your ${productName} transformation begins now.<br/>🔥 Check your email for exclusive access!`;
-            
-            // Add success animation
-            coupon.classList.add('redeemed');
-            
-            // Create sparkle effects
-            createSparkles(coupon);
-            
-            // Show success message
-            setTimeout(() => {
-                successMsg.classList.add('show');
-            }, 500);
-            
-            // Reset form after delay
-            setTimeout(() => {
-                e.target.reset();
-                coupon.classList.remove('redeemed');
-                successMsg.classList.remove('show');
-                
-                // Reset product selection
-                document.querySelectorAll('.product-option').forEach(opt => opt.classList.remove('selected'));
-                selectedProduct = null;
-                document.getElementById('selected-product-text').textContent = 'Select Your Equipment Above';
-                document.getElementById('selected-product-name').textContent = 'No equipment selected';
-                document.getElementById('selection-indicator').classList.remove('show');
-                
-                // Reset submit button
-                submitButton.disabled = true;
-                submitButton.textContent = 'SELECT EQUIPMENT FIRST';
-            }, 5000);
-            
-        } else {
-            // Handle API error
-            throw new Error(result.error || 'Failed to send email');
+        if (!selectedProduct) {
+          alert('Choose your equipment first, future bronze god!');
+          return;
         }
         
-    } catch (error) {
-        console.error('Error sending email:', error);
+        const email = e.target.querySelector('.coupon-input').value;
+        const product = selectedProduct;
+        const coupon = document.getElementById('solar-coupon');
+        const successMsg = document.getElementById('success-msg');
         
-        // Show error message
-        successMsg.innerHTML = `❌ Connection failed. Your bronze transformation awaits - try again!`;
-        successMsg.style.background = 'linear-gradient(135deg, #ff4444 0%, #cc3333 100%)';
+        // Here you would normally send the data to your server
+        console.log('Bronze Legion signup:', { email, product });
         
+        // Update success message with selected product
+        const productName = productData[product].name;
+        successMsg.innerHTML = `☀️ Welcome to the Bronze Legion!<br/>Your ${productName} transformation begins now. Check your email.`;
+        
+        // Add success animation
+        coupon.classList.add('redeemed');
+        
+        // Create sparkle effects
+        createSparkles(coupon);
+        
+        // Show success message
         setTimeout(() => {
-            successMsg.classList.add('show');
-        }, 100);
+        successMsg.classList.add('show');
+        }, 500);
         
-        // Reset error message after delay
+        // Reset form
         setTimeout(() => {
-            successMsg.classList.remove('show');
-            successMsg.style.background = 'linear-gradient(135deg, #00ff88 0%, #00cc66 100%)';
-        }, 3000);
-        
-        // Re-enable submit button
-        submitButton.disabled = false;
-        submitButton.textContent = `CLAIM ${productData[product].name.toUpperCase()}`;
-    }
-});
+        e.target.reset();
+        coupon.classList.remove('redeemed');
+        successMsg.classList.remove('show');
+        }, 4000);
+   });
 
     // Create sparkle animation
     function createSparkles(container) {
