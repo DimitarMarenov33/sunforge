@@ -107,9 +107,6 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Generate checkout link (you'll replace this with your actual payment processor)
-    const checkoutLink = `https://sunforge.netlify.app/checkout?product=${product}&email=${encodeURIComponent(email)}`;
-
     // Create the HTML email template
     const htmlEmail = `
 <!DOCTYPE html>
@@ -117,7 +114,7 @@ exports.handler = async (event, context) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to the Bronze Legion</title>
+    <title>Welcome to the Bronze Legion Waitlist</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
@@ -179,6 +176,30 @@ exports.handler = async (event, context) => {
             font-size: 18px;
             color: #888888;
             margin-bottom: 30px;
+        }
+        
+        .waitlist-badge {
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid #D4AF37;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .waitlist-title {
+            color: #D4AF37;
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .waitlist-message {
+            color: #FAFAF8;
+            font-size: 16px;
+            line-height: 1.7;
         }
         
         .product-showcase {
@@ -274,59 +295,52 @@ exports.handler = async (event, context) => {
             font-weight: 600;
         }
         
-        .cta-section {
-            padding: 50px 30px;
-            text-align: center;
+        .drop-info {
             background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            padding: 40px 30px;
+            text-align: center;
         }
         
-        .cta-title {
+        .drop-title {
             font-size: 24px;
             font-weight: 400;
             margin-bottom: 20px;
         }
         
-        .cta-subtitle {
+        .drop-subtitle {
             color: #888888;
             margin-bottom: 30px;
             font-size: 16px;
+            line-height: 1.7;
         }
         
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #D4AF37 0%, #F4D976 100%);
-            color: #000;
-            padding: 18px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+            text-align: left;
         }
         
-        .urgency {
+        .benefit {
             background: rgba(212, 175, 55, 0.1);
             border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 20px;
-            margin: 30px 0;
-            text-align: center;
         }
         
-        .urgency-title {
+        .benefit-title {
             color: #D4AF37;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
-        .timer {
-            font-size: 24px;
-            font-weight: 300;
-            color: #D4AF37;
-            letter-spacing: 2px;
+        .benefit-text {
+            color: #FAFAF8;
+            font-size: 14px;
         }
         
         .footer {
@@ -340,6 +354,7 @@ exports.handler = async (event, context) => {
             color: #888888;
             font-size: 14px;
             margin-bottom: 20px;
+            line-height: 1.7;
         }
         
         .social-links {
@@ -371,7 +386,7 @@ exports.handler = async (event, context) => {
             
             .hero-section,
             .product-showcase,
-            .cta-section,
+            .drop-info,
             .footer {
                 padding: 30px 20px;
             }
@@ -387,6 +402,11 @@ exports.handler = async (event, context) => {
             .sale-price {
                 font-size: 28px;
             }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
         }
     </style>
 </head>
@@ -400,14 +420,22 @@ exports.handler = async (event, context) => {
         
         <!-- Hero Section -->
         <div class="hero-section">
-            <h1 class="hero-title">Welcome to the Bronze Legion</h1>
-            <p class="hero-subtitle">Your transformation from pale zombie to bronze god begins now</p>
+            <h1 class="hero-title">You're In The Bronze Legion</h1>
+            <p class="hero-subtitle">Stop waiting. Your transformation equipment is being forged.</p>
+        </div>
+        
+        <!-- Waitlist Confirmation -->
+        <div class="waitlist-badge">
+            <div class="waitlist-title">🔥 Waitlist Confirmed</div>
+            <div class="waitlist-message">
+                Thanks for joining the rebellion against pale zombie life. The next SUNFORGE drop is being forged in our solar foundries. When your equipment is ready, you'll get the 50% off code and lifetime app access. Until then, stop poisoning yourself with fluorescent lights and start planning your escape from indoor slavery.
+            </div>
         </div>
         
         <!-- Product Showcase -->
         <div class="product-showcase">
             <div class="product-header">
-                <div class="product-badge">Your Selected Equipment</div>
+                <div class="product-badge">Your Reserved Equipment</div>
                 <h2 class="product-name">${selectedProduct.fullName}</h2>
                 <p class="product-description">${selectedProduct.description}</p>
             </div>
@@ -415,7 +443,7 @@ exports.handler = async (event, context) => {
             <div class="pricing">
                 <span class="original-price">${selectedProduct.price}</span>
                 <span class="sale-price">${selectedProduct.salePrice}</span>
-                <div class="savings">Save ${parseInt(selectedProduct.price.slice(1)) - parseInt(selectedProduct.salePrice.slice(1))}$ - Bronze Legion Exclusive</div>
+                <div class="savings">50% Off - Bronze Legion Exclusive</div>
             </div>
             
             <ul class="features-list">
@@ -428,25 +456,42 @@ exports.handler = async (event, context) => {
             </ul>
         </div>
         
-        <!-- Urgency Section -->
-        <div class="urgency">
-            <div class="urgency-title">⏰ Limited Time - 50% Off Ends Soon</div>
-            <div class="timer">47:23:15</div>
-            <p style="margin-top: 10px; color: #888; font-size: 14px;">This Bronze Legion pricing expires in less than 48 hours</p>
-        </div>
-        
-        <!-- CTA Section -->
-        <div class="cta-section">
-            <h2 class="cta-title">Claim Your ${selectedProduct.name}</h2>
-            <p class="cta-subtitle">Join 12,847+ men who escaped their fluorescent prison</p>
-            <a href="${checkoutLink}" class="cta-button">Secure My Equipment Now</a>
+        <!-- Drop Information -->
+        <div class="drop-info">
+            <h2 class="drop-title">What Happens Next</h2>
+            <p class="drop-subtitle">
+                Your ancestors didn't wait for permission to conquer. Neither should you. Here's what you're getting when the drop launches:
+            </p>
+            
+            <div class="benefits-grid">
+                <div class="benefit">
+                    <div class="benefit-title">🎯 First Access</div>
+                    <div class="benefit-text">You're first in line. No fighting pale zombies for equipment.</div>
+                </div>
+                
+                <div class="benefit">
+                    <div class="benefit-title">💰 50% Discount</div>
+                    <div class="benefit-text">Exclusive Bronze Legion pricing. Your commitment to excellence pays off.</div>
+                </div>
+                
+                <div class="benefit">
+                    <div class="benefit-title">📱 Lifetime App</div>
+                    <div class="benefit-text">SUNFORGE app with tracking, protocols, and brotherhood access. Forever.</div>
+                </div>
+                
+                <div class="benefit">
+                    <div class="benefit-title">🏆 Legion Status</div>
+                    <div class="benefit-text">Join 12,847+ men who stopped accepting weakness and started optimizing.</div>
+                </div>
+            </div>
         </div>
         
         <!-- Footer -->
         <div class="footer">
             <p class="footer-text">
-                You're receiving this because you joined the Bronze Legion at SUNFORGE.<br>
-                Your ancestors conquered under the sun. Your transformation starts now.
+                You're getting this because you refused to stay a pale zombie.<br>
+                The drop is coming. Your bronze transformation awaits.<br>
+                For now, get some real sunlight. Your vitamin D levels are probably tragic.
             </p>
             
             <div class="social-links">
@@ -471,31 +516,39 @@ exports.handler = async (event, context) => {
         email: process.env.FROM_EMAIL || 'forge@sunforge.com',
         name: 'SUNFORGE - Bronze Legion'
       },
-      subject: `⚡ Welcome to the Bronze Legion - Your ${selectedProduct.name} Awaits`,
+      subject: `🔥 You're In The Bronze Legion - ${selectedProduct.name} Reserved`,
       html: htmlEmail,
       // Plain text version for email clients that don't support HTML
       text: `
-Welcome to the Bronze Legion!
+You're In The Bronze Legion
 
-Your transformation from pale zombie to bronze god begins now.
+Stop waiting. Your transformation equipment is being forged.
 
-You've selected: ${selectedProduct.fullName}
+WAITLIST CONFIRMED:
+Thanks for joining the rebellion against pale zombie life. The next SUNFORGE drop is being forged in our solar foundries. When your equipment is ready, you'll get the 50% off code and lifetime app access. Until then, stop poisoning yourself with fluorescent lights and start planning your escape from indoor slavery.
+
+Your Reserved Equipment: ${selectedProduct.fullName}
 ${selectedProduct.description}
 
-Special Bronze Legion Pricing:
-Original Price: ${selectedProduct.price}
+Bronze Legion Pricing:
+Original: ${selectedProduct.price}
 Your Price: ${selectedProduct.salePrice}
-You Save: $${parseInt(selectedProduct.price.slice(1)) - parseInt(selectedProduct.salePrice.slice(1))}
+You Save: 50%
 
-Claim your equipment now: ${checkoutLink}
+What You're Getting:
+→ First access to the drop
+→ 50% off exclusive pricing  
+→ Lifetime SUNFORGE app access
+→ Bronze Legion status with 12,847+ optimized men
 
-This 50% off pricing expires in less than 48 hours.
+Equipment Features:
+${selectedProduct.features.map(feature => `• ${feature}`).join('\n')}
 
-Join 12,847+ men who escaped their fluorescent prison.
-
-Your ancestors conquered under the sun. Your transformation starts now.
+The drop is coming. Your bronze transformation awaits.
+For now, get some real sunlight. Your vitamin D levels are probably tragic.
 
 SUNFORGE - Solar Masculinity Optimization
+Stop being a pale zombie.
       `
     };
 
@@ -512,7 +565,7 @@ SUNFORGE - Solar Masculinity Optimization
       },
       body: JSON.stringify({ 
         success: true, 
-        message: 'Welcome email sent successfully',
+        message: 'Waitlist confirmation email sent successfully',
         product: selectedProduct.name
       })
     };

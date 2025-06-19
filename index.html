@@ -349,6 +349,29 @@
             overflow: hidden;
         }
         
+        .product-image-container {
+            height: 600px;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+        
         .canvas-container {
             width: 100%;
             height: 100%;
@@ -1167,19 +1190,17 @@
             
             .video-background iframe {
                 position: absolute;
-                height: 100vh;
-                height: 100dvh;
-                min-width: 100vw;
-                min-height: 100vh;
-                min-height: 100dvh;
-                border: none;
-                z-index: 1;
-                object-fit: cover;
                 top: 0;
                 left: 0;
                 width: 100vw;
                 height: 100vh;
+                height: 100dvh;
+                border: none;
+                z-index: 1;
                 object-fit: cover;
+                /* Ensure video covers full screen */
+                min-width: 100%;
+                min-height: 100%;
             }
             
             .hero-content {
@@ -1246,14 +1267,15 @@
                 text-shadow: 0 2px 8px rgba(0,0,0,0.7) !important;
             }
 
-            /* 3D Models - Stack Above Description on Mobile */
+            /* 3D Models and Images - Stack Above Description on Mobile */
             .product-grid {
                 grid-template-columns: 1fr !important;
                 gap: 2rem !important;
                 padding: 20px !important;
             }
             
-            .product-3d {
+            .product-3d,
+            .product-image-container {
                 height: 300px !important;
                 order: -1;
                 margin-bottom: 1rem;
@@ -1486,7 +1508,8 @@
                 gap: 40px !important;
             }
             
-            .product-3d {
+            .product-3d,
+            .product-image-container {
                 height: 400px !important;
             }
             
@@ -1682,8 +1705,8 @@
                     <!-- Protection Glasses -->
                     <div class="product-slide">
                         <div class="product-grid">
-                            <div class="product-3d">
-                                <div id="canvas-container-sunglasses" class="canvas-container"></div>
+                            <div class="product-image-container">
+                                <img src="sunglasses-icon.png" alt="Eye Defenders" class="product-image" />
                             </div>
                             <div class="product-info fade-in">
                                 <h3>Elite Vision Protection</h3>
@@ -1716,8 +1739,8 @@
                     <!-- Strategic Coverage -->
                     <div class="product-slide">
                         <div class="product-grid">
-                            <div class="product-3d">
-                                <div id="canvas-container-hat" class="canvas-container"></div>
+                            <div class="product-image-container">
+                                <img src="hat-icon.png" alt="Tactical Shade" class="product-image" />
                             </div>
                             <div class="product-info fade-in">
                                 <h3>Strategic Solar Coverage</h3>
@@ -1750,8 +1773,8 @@
                     <!-- Health Monitor -->
                     <div class="product-slide">
                         <div class="product-grid">
-                            <div class="product-3d">
-                                <div id="canvas-container-ring" class="canvas-container"></div>
+                            <div class="product-image-container">
+                                <img src="ring-icon.png" alt="The Solar Ring" class="product-image" />
                             </div>
                             <div class="product-info fade-in">
                                 <h3>Biometric Power Monitor</h3>
@@ -1784,8 +1807,8 @@
                     <!-- Power Chain -->
                     <div class="product-slide">
                         <div class="product-grid">
-                            <div class="product-3d">
-                                <div id="canvas-container-chain" class="canvas-container"></div>
+                            <div class="product-image-container">
+                                <img src="chain-icon.png" alt="Solar Medallion" class="product-image" />
                             </div>
                             <div class="product-info fade-in">
                                 <h3>Solar Power Chain</h3>
@@ -1982,8 +2005,8 @@
                     <div class="coupon-content">
                         <div class="coupon-left">
                             <div class="coupon-header">
-                                <span class="coupon-badge">Early Access Only</span>
-                                <h3 class="coupon-title">BRONZE LEGION MEMBERSHIP</h3>
+                                <span class="coupon-badge">EARLY ACCESS DROP SOLD OUT!  </span>
+                                <h3 class="coupon-title">JOIN THE WAITLIST FOR THE NEXT DROP AND RECEIVE:</h3>
                                 <p class="coupon-subtitle">Transform from pale zombie to bronze god</p>
                             </div>
                         </div>
@@ -1992,7 +2015,7 @@
                             <div class="coupon-offer">
                                 <div class="coupon-discount">50% OFF</div>
                                 <div class="coupon-details" id="selected-product-text">Select Your Equipment Above</div>
-                                <div class="coupon-bonus">+ Bronze Legion Access Forever</div>
+                                <div class="coupon-bonus">+ Free Sunforge App Access Forever</div>
                             </div>
                         </div>
                         
@@ -2179,13 +2202,9 @@
     }
   });
 
-  // Three.js Setup for Multiple Products
+  // Three.js Setup for Bracelet Only
   const productConfigs = [
-    { id: 'bracelet', file: 'bracelet.gltf', color: 0xD4AF37 },
-    { id: 'sunglasses', file: 'sunglasses.gltf', color: 0x333333 },
-    { id: 'hat', file: 'hat.gltf', color: 0x8B4513 },
-    { id: 'ring', file: 'ring.gltf', color: 0xD4AF37 },
-    { id: 'chain', file: 'chain.gltf', color: 0xC0C0C0 }
+    { id: 'bracelet', file: 'bracelet.gltf', color: 0xD4AF37 }
   ];
 
   const models = {};
@@ -2251,20 +2270,10 @@
   }
 
   function getPlaceholderGeometry(productId) {
-    switch (productId) {
-      case 'bracelet':
-        return new THREE.TorusGeometry(1, 0.3, 8, 16);
-      case 'sunglasses':
-        return new THREE.BoxGeometry(3, 1, 0.3);
-      case 'hat':
-        return new THREE.ConeGeometry(1.5, 1, 8);
-      case 'ring':
-        return new THREE.TorusGeometry(0.8, 0.2, 8, 16);
-      case 'chain':
-        return new THREE.CylinderGeometry(0.1, 0.1, 3, 8);
-      default:
-        return new THREE.BoxGeometry(2, 0.5, 1);
+    if (productId === 'bracelet') {
+      return new THREE.TorusGeometry(1, 0.3, 8, 16);
     }
+    return new THREE.BoxGeometry(2, 0.5, 1);
   }
 
   function loadProductModel(config, scene, control, camera) {
@@ -2284,30 +2293,16 @@
         const center = box.getCenter(new THREE.Vector3());
         gltf.scene.position.sub(center);
         
-        // Apply specific rotations and scaling based on product type
-        switch (config.id) {
-          case 'bracelet':
-            gltf.scene.rotation.set(0, 0, -22);
-            const braceletScale = 3.5;
-            gltf.scene.scale.multiplyScalar(braceletScale);
-            
-            control.target.set(0.1, 0, 0);
-            camera.position.set(0, 0.8, 0);
-            camera.lookAt(1, 1, 33);
-            camera.rotation.x = - Math.PI / 2;
-            break;
-          case 'sunglasses':
-            gltf.scene.rotation.set(0, 0.2, 0);
-            break;
-          case 'hat':
-            gltf.scene.rotation.set(0.1, 0, 0);
-            break;
-          case 'ring':
-            gltf.scene.rotation.set(0.5, 0, 0);
-            break;
-          case 'chain':
-            gltf.scene.rotation.set(0, 0, 0.1);
-            break;
+        // Apply specific rotations and scaling for bracelet
+        if (config.id === 'bracelet') {
+          gltf.scene.rotation.set(0, 0, -22);
+          const braceletScale = 3.5;
+          gltf.scene.scale.multiplyScalar(braceletScale);
+          
+          control.target.set(0.1, 0, 0);
+          camera.position.set(0, 0.8, 0);
+          camera.lookAt(1, 1, 33);
+          camera.rotation.x = - Math.PI / 2;
         }
 
         const size = box.getSize(new THREE.Vector3());
@@ -2328,51 +2323,45 @@
   }
 
   function initializeCurrentModel() {
-    // Only animate the current slide's model
-    Object.keys(models).forEach((key, index) => {
-      if (models[key] && index === currentSlide) {
-        // Reset rotation for current model
-        if (models[key].rotation) {
-          models[key].rotation.x = 0;
-          models[key].rotation.y = 0;
-          models[key].rotation.z = 0;
-        }
+    // Only animate bracelet model when it's the current slide (slide 0)
+    if (currentSlide === 0 && models['bracelet']) {
+      if (models['bracelet'].rotation) {
+        models['bracelet'].rotation.x = 0;
+        models['bracelet'].rotation.y = 0;
+        models['bracelet'].rotation.z = 0;
       }
-    });
+    }
   }
 
   // Animation loop
   function animate() {
     requestAnimationFrame(animate);
     
-    // Only animate current slide
-    Object.keys(models).forEach((key, index) => {
-      if (models[key] && index === currentSlide) {
-        if (models[key].rotation) {
-          models[key].rotation.x += 0.01;
-        }
+    // Only animate bracelet if it's the current slide (slide 0)
+    if (currentSlide === 0 && models['bracelet']) {
+      if (models['bracelet'].rotation) {
+        models['bracelet'].rotation.x += 0.01;
       }
-      
-      if (controls[key]) {
-        controls[key].update();
-      }
-      
-      if (renderers[key] && scenes[key] && cameras[key]) {
-        renderers[key].render(scenes[key], cameras[key]);
-      }
-    });
+    }
+    
+    // Update controls and render for bracelet only
+    if (controls['bracelet']) {
+      controls['bracelet'].update();
+    }
+    
+    if (renderers['bracelet'] && scenes['bracelet'] && cameras['bracelet']) {
+      renderers['bracelet'].render(scenes['bracelet'], cameras['bracelet']);
+    }
   }
 
   // Handle window resize
   window.addEventListener('resize', () => {
-    Object.keys(cameras).forEach(key => {
-      const container = document.getElementById(`canvas-container-${key}`);
-      if (container && cameras[key] && renderers[key]) {
-        cameras[key].aspect = container.clientWidth / container.clientHeight;
-        cameras[key].updateProjectionMatrix();
-        renderers[key].setSize(container.clientWidth, container.clientHeight);
-      }
-    });
+    const container = document.getElementById('canvas-container-bracelet');
+    if (container && cameras['bracelet'] && renderers['bracelet']) {
+      cameras['bracelet'].aspect = container.clientWidth / container.clientHeight;
+      cameras['bracelet'].updateProjectionMatrix();
+      renderers['bracelet'].setSize(container.clientWidth, container.clientHeight);
+    }
   });
 
   // Initialize everything
@@ -2459,101 +2448,45 @@
   }
 
   // Coupon form submission with celebration
-  // Coupon form submission with celebration and email sending
-document.getElementById('bronze-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    if (!selectedProduct) {
-        alert('Choose your equipment first, future bronze god!');
-        return;
-    }
-    
-    const email = e.target.querySelector('.coupon-input').value;
-    const product = selectedProduct;
-    const coupon = document.getElementById('solar-coupon');
-    const successMsg = document.getElementById('success-msg');
-    const submitButton = document.getElementById('claim-button');
-    
-    // Disable submit button and show loading state
-    submitButton.disabled = true;
-    submitButton.textContent = 'FORGING YOUR TRANSFORMATION...';
-    
-    try {
-        // Send data to Netlify function
-        const response = await fetch('/.netlify/functions/send-email', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: email,
-                product: product
-            })
-        });
+  document.getElementById('bronze-form').addEventListener('submit', (e) => {
+        e.preventDefault();
         
-        const result = await response.json();
-        
-        if (response.ok && result.success) {
-            // Success! Show celebration animation
-            const productName = productData[product].name;
-            successMsg.innerHTML = `☀️ Welcome to the Bronze Legion!<br/>Your ${productName} transformation begins now.<br/>🔥 Check your email for exclusive access!`;
-            
-            // Add success animation
-            coupon.classList.add('redeemed');
-            
-            // Create sparkle effects
-            createSparkles(coupon);
-            
-            // Show success message
-            setTimeout(() => {
-                successMsg.classList.add('show');
-            }, 500);
-            
-            // Reset form after delay
-            setTimeout(() => {
-                e.target.reset();
-                coupon.classList.remove('redeemed');
-                successMsg.classList.remove('show');
-                
-                // Reset product selection
-                document.querySelectorAll('.product-option').forEach(opt => opt.classList.remove('selected'));
-                selectedProduct = null;
-                document.getElementById('selected-product-text').textContent = 'Select Your Equipment Above';
-                document.getElementById('selected-product-name').textContent = 'No equipment selected';
-                document.getElementById('selection-indicator').classList.remove('show');
-                
-                // Reset submit button
-                submitButton.disabled = true;
-                submitButton.textContent = 'SELECT EQUIPMENT FIRST';
-            }, 5000);
-            
-        } else {
-            // Handle API error
-            throw new Error(result.error || 'Failed to send email');
+        if (!selectedProduct) {
+          alert('Choose your equipment first, future bronze god!');
+          return;
         }
         
-    } catch (error) {
-        console.error('Error sending email:', error);
+        const email = e.target.querySelector('.coupon-input').value;
+        const product = selectedProduct;
+        const coupon = document.getElementById('solar-coupon');
+        const successMsg = document.getElementById('success-msg');
         
-        // Show error message
-        successMsg.innerHTML = `❌ Connection failed. Your bronze transformation awaits - try again!`;
-        successMsg.style.background = 'linear-gradient(135deg, #ff4444 0%, #cc3333 100%)';
+        // Here you would normally send the data to your server
+        console.log('Bronze Legion signup:', { email, product });
         
+        // Update success message with selected product
+        const productName = productData[product].name;
+        successMsg.innerHTML = `☀️ Welcome to the Bronze Legion!<br/>Your ${productName} transformation begins now. Check your email.`;
+        
+        // Add success animation
+        coupon.classList.add('redeemed');
+        
+        // Create sparkle effects
+        createSparkles(coupon);
+        
+        // Show success message
         setTimeout(() => {
-            successMsg.classList.add('show');
-        }, 100);
+        successMsg.classList.add('show');
+        }, 500);
         
-        // Reset error message after delay
+        // Reset form
         setTimeout(() => {
-            successMsg.classList.remove('show');
-            successMsg.style.background = 'linear-gradient(135deg, #00ff88 0%, #00cc66 100%)';
-        }, 3000);
-        
-        // Re-enable submit button
-        submitButton.disabled = false;
-        submitButton.textContent = `CLAIM ${productData[product].name.toUpperCase()}`;
-    }
-});
+        e.target.reset();
+        coupon.classList.remove('redeemed');
+        successMsg.classList.remove('show');
+        }, 4000);
+   });
+
     // Create sparkle animation
     function createSparkles(container) {
         for (let i = 0; i < 15; i++) {
