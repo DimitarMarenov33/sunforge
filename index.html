@@ -2448,7 +2448,7 @@
   }
 
   // Coupon form submission with celebration
-  document.getElementById('bronze-form').addEventListener('submit', (e) => {
+    document.getElementById('bronze-form').addEventListener('submit', async (e) => { // ADD async here
         e.preventDefault();
         
         if (!selectedProduct) {
@@ -2462,8 +2462,60 @@
         const successMsg = document.getElementById('success-msg');
         
         // Here you would normally send the data to your server
-        console.log('Bronze Legion signup:', { email, product });
-        
+        try {
+            const response = await fetch('/.netlify/functions/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, product }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Server response:', data);
+
+                // Update success message with selected product
+                const productName = productData[product].name;
+                successMsg.innerHTML = `☀️ Welcome to the Bronze Legion!<br/>Your ${productName} transformation begins now. Check your email.`;
+
+                // Add success animation
+                coupon.classList.add('redeemed');
+
+                // Create sparkle effects (assuming you have this function defined elsewhere)
+                createSparkles(coupon);
+
+                // Show success message
+                setTimeout(() => {
+                    successMsg.classList.add('show');
+                }, 500);
+
+                // Reset form (consider resetting this after the success message is fully displayed/gone)
+                setTimeout(() => {
+                    e.target.reset();
+                    coupon.classList.remove('redeemed');
+                    successMsg.classList.remove('show');
+                    // Also reset product selection visual state if desired
+                    document.querySelectorAll('.product-option').forEach(opt => opt.classList.remove('selected'));
+                    selectedProduct = null; // Clear selected product in JS
+                    claimButton.disabled = true; // Disable button
+                    claimButton.textContent = 'SELECT EQUIPMENT FIRST';
+                    selectionIndicator.classList.remove('show'); // Hide indicator
+                }, 4000);
+
+            } else {
+                const errorData = await response.json();
+                console.error('Server error:', errorData);
+                alert(`Failed to sign up: ${errorData.error || 'Unknown error'}`);
+                // Remove 'redeemed' class if it was added prematurely
+                coupon.classList.remove('redeemed');
+            }
+        } catch (error) {
+            console.error('Network or fetch error:', error);
+            alert('An error occurred while trying to connect to the server. Please try again.');
+            // Remove 'redeemed' class if it was added prematurely
+            coupon.classList.remove('redeemed');
+        }        
         // Update success message with selected product
         const productName = productData[product].name;
         successMsg.innerHTML = `☀️ Welcome to the Bronze Legion!<br/>Your ${productName} transformation begins now. Check your email.`;
