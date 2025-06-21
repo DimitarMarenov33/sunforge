@@ -513,7 +513,7 @@ exports.handler = async (event, context) => {
     const msg = {
       to: email,
       from: {
-        email: process.env.FROM_EMAIL || 'forge@sunforge.com',
+        email: process.env.FROM_EMAIL || 'mitko592@gmail.com',
         name: 'SUNFORGE - Bronze Legion'
       },
       subject: `🔥 You're In The Bronze Legion - ${selectedProduct.name} Reserved`,
