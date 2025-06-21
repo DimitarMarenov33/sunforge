@@ -28,7 +28,7 @@ exports.handler = async (event, context) => {
     // Product data mapping
     const productData = {
       tracker: {
-        name: 'UV Precision Tracker',
+        name: 'ForgeBand',
         fullName: 'SUNFORGE UV Tracker',
         description: 'Military-grade UV sensors that track every photon hitting your skin',
         price: '$297',
@@ -42,7 +42,7 @@ exports.handler = async (event, context) => {
         image: 'https://sunforge.netlify.app/bracelet-icon.png'
       },
       protection: {
-        name: 'Elite Vision Protection',
+        name: 'Vision Defenders',
         fullName: 'SUNFORGE Vision Shield',
         description: 'Block the blue light prison while optimizing your circadian rhythm',
         price: '$197',
@@ -56,7 +56,7 @@ exports.handler = async (event, context) => {
         image: 'https://sunforge.netlify.app/sunglasses-icon.png'
       },
       coverage: {
-        name: 'Strategic Solar Coverage',
+        name: 'Tactical Shade',
         fullName: 'SUNFORGE Tactical Cap',
         description: 'Tactical shade deployment with integrated sensors',
         price: '$97',
@@ -64,13 +64,13 @@ exports.handler = async (event, context) => {
         features: [
           'Strategic vitamin D windows in crown design',
           'UPF 50+ scalp protection where needed',
-          'Temperature regulation system',
+          'Elite Comfort Design to ensure optimal blood circulation',
           'Moisture-wicking performance technology'
         ],
         image: 'https://sunforge.netlify.app/hat-icon.png'
       },
       monitor: {
-        name: 'Biometric Power Monitor',
+        name: 'Solar Ring',
         fullName: 'SUNFORGE Power Monitor',
         description: 'Track your body\'s response to solar optimization',
         price: '$397',
@@ -84,11 +84,11 @@ exports.handler = async (event, context) => {
         image: 'https://sunforge.netlify.app/ring-icon.png'
       },
       power: {
-        name: 'Solar Power Chain',
+        name: 'Sun Medallion',
         fullName: 'SUNFORGE Power Chain',
         description: 'More than jewelry - a statement of solar dominance',
-        price: '$497',
-        salePrice: '$248',
+        price: '$286',
+        salePrice: '$143',
         features: [
           'Device charging through solar cell integration',
           'Respiratory and cardiac monitoring system',

@@ -1654,11 +1654,11 @@
                 <div class="carousel-nav">
                     <button class="carousel-btn prev-btn" id="prevBtn">‹</button>
                     <div class="product-indicators">
-                        <span class="indicator active" data-product="0">Tracker</span>
-                        <span class="indicator" data-product="1">Protection</span>
-                        <span class="indicator" data-product="2">Coverage</span>
-                        <span class="indicator" data-product="3">Monitor</span>
-                        <span class="indicator" data-product="4">Power</span>
+                        <span class="indicator active" data-product="0">Band</span>
+                        <span class="indicator" data-product="1">Vision</span>
+                        <span class="indicator" data-product="2">Shade</span>
+                        <span class="indicator" data-product="3">Ring</span>
+                        <span class="indicator" data-product="4">Medallion</span>
                     </div>
                     <button class="carousel-btn next-btn" id="nextBtn">›</button>
                 </div>
@@ -1675,7 +1675,7 @@
                                 <div id="canvas-container-bracelet" class="canvas-container"></div>
                             </div>
                             <div class="product-info fade-in">
-                                <h3>UV Precision Tracker</h3>
+                                <h3>ForgeBand</h3>
                                 <p>
                                     Stop playing guessing games with your vitamin D. Military-grade UV sensors track every photon hitting your skin. Know exactly when you've hit optimal exposure. No more supplements. No more deficiency. Just pure solar optimization.
                                 </p>
@@ -1953,8 +1953,8 @@
                             <img src="bracelet-icon.png" alt="UV Tracker" class="product-icon-img">
                         </div>
                         <div class="product-option-content">
-                            <h4>UV Tracker</h4>
-                            <p>Precision Tool</p>
+                            <h4>ForgeBand</h4>
+                            <p>Classic & Sporty</p>
                         </div>
                     </div>
                     
@@ -1963,8 +1963,8 @@
                             <img src="sunglasses-icon.png" alt="Vision Protection" class="product-icon-img">
                         </div>
                         <div class="product-option-content">
-                            <h4>Vision Shield</h4>
-                            <p>Blue Light Killer</p>
+                            <h4>Eye Defenders</h4>
+                            <p>Blue Light Shields</p>
                         </div>
                     </div>
                     
@@ -1973,7 +1973,7 @@
                             <img src="hat-icon.png" alt="Strategic Coverage" class="product-icon-img">
                         </div>
                         <div class="product-option-content">
-                            <h4>Tactical Cap</h4>
+                            <h4>Tactical Shade</h4>
                             <p>Smart Coverage</p>
                         </div>
                     </div>
@@ -1983,8 +1983,8 @@
                             <img src="ring-icon.png" alt="Health Monitor" class="product-icon-img">
                         </div>
                         <div class="product-option-content">
-                            <h4>Power Monitor</h4>
-                            <p>Health Tracking</p>
+                            <h4>The Solar Ring</h4>
+                            <p>One Ring To Track Them All</p>
                         </div>
                     </div>
                     
@@ -1993,8 +1993,8 @@
                             <img src="chain-icon.png" alt="Power Chain" class="product-icon-img">
                         </div>
                         <div class="product-option-content">
-                            <h4>Power Chain</h4>
-                            <p>Status Symbol</p>
+                            <h4>Solar Medallion</h4>
+                            <p>More Than Jewelry </p>
                         </div>
                     </div>
                 </div>
@@ -2376,29 +2376,31 @@
   // Product Selection Functionality
   let selectedProduct = null;
   
-  const productData = {
+  const productData = { 
+    
+    
     tracker: {
-      name: 'UV Precision Tracker',
+      name: 'ForgeBand',
       description: 'Precision Tool',
       fullName: 'SUNFORGE UV Tracker'
     },
     protection: {
-      name: 'Elite Vision Protection',
+      name: 'Vision Sheilds',
       description: 'Blue Light Killer',
       fullName: 'SUNFORGE Vision Shield'
     },
     coverage: {
-      name: 'Strategic Solar Coverage',
+      name: 'Tactical Shade',
       description: 'Smart Coverage',
       fullName: 'SUNFORGE Tactical Cap'
     },
     monitor: {
-      name: 'Biometric Power Monitor',
+      name: 'Solar Ring',
       description: 'Health Tracking',
       fullName: 'SUNFORGE Power Monitor'
     },
     power: {
-      name: 'Solar Power Chain',
+      name: 'Sun Medallion',
       description: 'Status Symbol',
       fullName: 'SUNFORGE Power Chain'
     }
@@ -2477,7 +2479,7 @@
 
                 // Update success message with selected product
                 const productName = productData[product].name;
-                successMsg.innerHTML = `☀️ Welcome to the Bronze Legion!<br/>Your ${productName} transformation begins now. Check your email.`;
+                successMsg.innerHTML = `☀️ Welcome to the Bronze Legion!<br/> Please check your spam folder! Your ${productName} transformation begins now.`;
 
                 // Add success animation
                 coupon.classList.add('redeemed');
@@ -2488,7 +2490,7 @@
                 // Show success message
                 setTimeout(() => {
                     successMsg.classList.add('show');
-                }, 500);
+                }, 1500);
 
                 // Reset form (consider resetting this after the success message is fully displayed/gone)
                 setTimeout(() => {
@@ -2518,7 +2520,7 @@
         }        
         // Update success message with selected product
         const productName = productData[product].name;
-        successMsg.innerHTML = `☀️ Welcome to the Bronze Legion!<br/>Your ${productName} transformation begins now. Check your email.`;
+        successMsg.innerHTML = `☀️ Welcome to the Bronze Legion!<br/> Please check your spam folder! Your ${productName} transformation begins now. Check your email.`;
         
         // Add success animation
         coupon.classList.add('redeemed');
@@ -2529,7 +2531,7 @@
         // Show success message
         setTimeout(() => {
         successMsg.classList.add('show');
-        }, 500);
+        }, 1500);
         
         // Reset form
         setTimeout(() => {
